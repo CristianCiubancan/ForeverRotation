@@ -14,6 +14,7 @@ end
 
 require("spec_repo")(H)
 require("spec_queue")(H)
+require("spec_bars")(H)
 require("golden").run(H, update)
 
 if update then

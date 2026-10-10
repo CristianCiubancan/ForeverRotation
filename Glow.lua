@@ -51,8 +51,13 @@ end
 local barSpellCount = 0
 local slotsOccupied = 0
 local slotsKnown = 0
+-- Occupied slots whose action the client would not reveal (secret / error).
+-- While any exist, "not on a bar" cannot be trusted.
+local slotsHidden = 0
+local fetchDone = false
 local knownSlot = {}
 local countedSlot = {}
+local hiddenSlot = {}
 local spellsByNorm = {}
 local buttonsByIcon = {}
 local nameOwner = {}
@@ -166,6 +171,14 @@ local function noteOccupied(button)
 	end
 	countedSlot[button] = true
 	slotsOccupied = slotsOccupied + 1
+end
+
+local function noteHidden(button)
+	if not button or hiddenSlot[button] then
+		return
+	end
+	hiddenSlot[button] = true
+	slotsHidden = slotsHidden + 1
 end
 
 local function addSpellName(name, button)
@@ -476,6 +489,9 @@ local function addStandard(button)
 			local okHas, has = pcall(HasAction, slot)
 			if okHas and has then
 				local okInfo, t, actionID, _, spellFromAction = pcall(GetActionInfo, slot)
+				if not okInfo or t == nil or (issecretvalue and issecretvalue(t)) then
+					noteHidden(button)
+				end
 				if okInfo and isToken(t, "spell") then
 					actionType = "spell"
 					id = plainID(spellFromAction) or plainID(actionID)
@@ -583,9 +599,12 @@ function ns.GlowFetch(force)
 	wipe(buttonsByIcon)
 	wipe(knownSlot)
 	wipe(countedSlot)
+	wipe(hiddenSlot)
 	barSpellCount = 0
 	slotsOccupied = 0
 	slotsKnown = 0
+	slotsHidden = 0
+	fetchDone = false
 	lastFetch = GetTime()
 
 	local queue = {}
@@ -652,8 +671,11 @@ function ns.GlowFetch(force)
 			else
 				pump()
 			end
-		elseif ns.InvalidateTick then
-			ns.InvalidateTick()
+		else
+			fetchDone = true
+			if ns.InvalidateTick then
+				ns.InvalidateTick()
+			end
 		end
 	end
 	pump()
@@ -1088,7 +1110,19 @@ function ns.SpellOnBar(spellID)
 	end
 	-- A bar scan that sometimes reads every button and sometimes does not
 	-- was clearing the rotation, then bringing it back, with no cast and no target.
-	return true
+	-- So "not on a bar" only counts after a finished scan that read every
+	-- occupied slot and found at least one spell. Otherwise the filter steps aside.
+	if not fetchDone or slotsHidden > 0 or slotsKnown == 0 then
+		return true
+	end
+	for _, id in ipairs({ spellID, resolved }) do
+		for key in pairs(spellIconKeys(id)) do
+			if buttonsByIcon[key] and #buttonsByIcon[key] > 0 then
+				return true
+			end
+		end
+	end
+	return false
 end
 
 local function slotCommand(slot)

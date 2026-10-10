@@ -349,6 +349,46 @@ local function install(env, W, T, frames, timers)
 	}
 	env.Enum = { SpellBookSpellBank = { Player = 0, Pet = 1 } }
 
+	-- Action bars: W.bars[slot] = { kind = "spell" | "item", id = n, hidden = bool }.
+	-- Slots 1-12 are ActionButton1-12. A hidden slot answers with secret values.
+	env.HasAction = function(slot)
+		return W.bars[slot] ~= nil
+	end
+	env.GetActionInfo = function(slot)
+		local b = W.bars[slot]
+		if not b then
+			return nil
+		end
+		if b.hidden then
+			return SECRET, SECRET, nil, SECRET
+		end
+		return b.kind, b.id, nil, b.kind == "spell" and b.id or nil
+	end
+	env.GetActionTexture = function(slot)
+		local b = W.bars[slot]
+		if b and not b.hidden and b.kind == "spell" then
+			return 100000 + b.id
+		end
+	end
+	for i = 1, 12 do
+		local slot = i
+		env["ActionButton" .. i] = {
+			GetAttribute = function(_, key)
+				if key == "type" then
+					return "action"
+				elseif key == "action" then
+					return slot
+				end
+			end,
+			IsShown = function()
+				return true
+			end,
+			GetName = function()
+				return "ActionButton" .. slot
+			end,
+		}
+	end
+
 	-- Spells -------------------------------------------------------------
 	local function spellInfo(id)
 		return W.spells[id]
@@ -665,6 +705,7 @@ local function defaultWorld(class)
 		procUp = {},
 		costs = {},
 		cd = {},
+		bars = {},
 		power = { [0] = 100, [1] = 50, [3] = 100 },
 		powerMax = { [0] = 100, [1] = 100, [3] = 100 },
 		primaryPower = PRIMARY_POWER[class] or 0,
@@ -818,6 +859,22 @@ function M.new(opts)
 	end
 	function T.cost(spell, kind, amount)
 		W.costs[T.id(spell)] = { type = kind, cost = amount }
+	end
+	-- Put spells on ActionButton1.. in order. Entries: a spell key, or
+	-- { item = true } / { hidden = true }. Rescans the bars like the client.
+	function T.bars(entries)
+		W.bars = {}
+		for slot, e in ipairs(entries) do
+			if type(e) == "table" and e.hidden then
+				W.bars[slot] = { hidden = true }
+			elseif type(e) == "table" and e.item then
+				W.bars[slot] = { kind = "item", id = 5000 + slot }
+			else
+				W.bars[slot] = { kind = "spell", id = T.id(e) }
+			end
+		end
+		T.fire("ACTIONBAR_SLOT_CHANGED", 1)
+		T.advance(0.6)
 	end
 
 	local function freshCaches()
