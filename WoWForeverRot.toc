@@ -13,14 +13,13 @@
 ## Notes-zhCN: WoW Forever Classic 循环助手。HUD、骷髅、治疗、防御。不是机器人。11 种语言。
 ## Notes-zhTW: WoW Forever Classic 循環助手。HUD、骷髏、治療、防禦。不是機器人。11 種語言。
 ## Version: 1.5.72
-## Author: Vohnka
+## Author: Vohnka (original), CristianCiubancan (maintainer)
 ## IconTexture: Interface\AddOns\WoWForeverRot\images\logo.tga
 ## Category: WoW Forever
 ## SavedVariables: WoWForeverRotDB, WoWForeverSharedDB
 ## SavedVariablesPerCharacter: WoWForeverRotCharDB
 ## DefaultState: enabled
-## X-Website: https://wow-forever.fr
-## X-Curse-Project-ID: 1708963
+## X-Website: https://github.com/CristianCiubancan/ForeverRotation
 
 Credits.lua
 Locale.lua

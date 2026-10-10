@@ -1,62 +1,95 @@
-# Forever Rotation — guide agent
+# Forever Rotation — contributor and agent guide
 
-Addon d'aide à la rotation pour **WoW Forever** (combat Classic Era, client camelot, interface `16001`). Il affiche les prochains sorts et surligne les boutons. Il ne lance aucun sort.
+Rotation helper add-on for **WoW Forever** (Classic Era combat, camelot client, interface `16001`). It shows the next spells and highlights action-bar buttons. It never casts anything.
 
-Version actuelle : **1.5.72**. Auteur : Vohnka — https://wow-forever.fr  
-Dépôt : https://github.com/ssablon/ForeverRotation (**public**, branche `main`, licence MIT). Le dossier local et le dossier AddOns restent `WoWForeverRot` (sauvegardes et install). Développement actif arrêté ; forks bienvenus.
+- Original author: Vohnka — https://wow-forever.fr (development stopped at 1.5.72).
+- Maintained from 1.6.0 by CristianCiubancan — https://github.com/CristianCiubancan/ForeverRotation (MIT).
+- Fork of `ssablon/ForeverRotation`, kept as the `upstream` remote.
+- The add-on folder and SavedVariables keep their names (`WoWForeverRot`, `WoWForeverRotDB`, …) so players switching from 1.5.72 keep their settings.
 
-La carte complète du code est dans [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md). Ce fichier dit seulement par où commencer.
+The full code map is [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) (French, written by the original author). This file only says where to start.
 
-## Source de vérité
+## Source of truth and dev loop
 
-Éditer **ce dépôt**. La copie jouée est :
+Edit **this repo**. The game folder is a directory junction to the repo root:
 
-`C:\Program Files (x86)\World of Warcraft\_classic_beta_\Interface\AddOns\WoWForeverRot`
+```bat
+mklink /J "E:\World of Warcraft\_classic_beta_\Interface\AddOns\WoWForeverRot" "E:\ForeverRotation"
+```
 
-Si les deux divergent, le dépôt gagne : recopier le dépôt vers AddOns. Ne pas écraser GitHub avec le dossier du jeu. Le guide joueur est `README.md` (anglais uniquement).
+Edit, then `/reload` in game. Never copy files from the game folder over the repo. The client only loads files listed in the TOC, so `tests/`, `docs/` and `dev/` in the folder are harmless.
 
-Après chaque changement demandé : bumper `VERSION.txt` + les deux TOC, recopier vers AddOns, commiter, `git push origin HEAD`, publier le zip sur CurseForge (projet `1708963`), puis poster la version sur Discord (`#changelog` + annonce dans `#announcements` avec le lien CurseForge). Voir `.cursor/rules/publish-curseforge.mdc`.
+## Tests
 
-## Ordre de chargement
+Lua **5.1** (same as the client). On Windows: `lua5.1.exe` / `luac5.1.exe` on `PATH`; on Ubuntu: `apt install lua5.1`.
 
-Les deux TOC chargent les mêmes fichiers, dans cet ordre :
+```sh
+lua5.1 tests/run.lua                  # all tests
+lua5.1 tests/run.lua --update-golden  # rewrite tests/golden/*.txt
+```
+
+- `tests/wowmock.lua` is a minimal client: units, health, power, auras, spellbook, cooldowns, a clock, and *secret values* like camelot. It loads the add-on files that build the queue (no UI).
+- Golden files record the queue for every class × spec × mode in a fixed set of situations. Rewrite them **only** when the change is intended, and review the diff: it is the list of every suggestion you changed.
+- CI (`.github/workflows/ci.yml`) runs `luac5.1 -p` on every `.lua` file and the tests on every push and pull request.
+
+## Releasing
+
+1. First line of `VERSION.txt` = the new version (`x.y.z`). Below it, the English Markdown changelog (see `.cursor/rules/changelog-pro.mdc`): player problem, new behaviour, classes affected, what did not change.
+2. Same version in **both** TOCs (`## Version`).
+3. Merge to `main`, then tag and push: `git tag v1.6.0 && git push origin v1.6.0`.
+4. `.github/workflows/release.yml` checks the tag against `VERSION.txt` and both TOCs, runs the tests, builds `WoWForeverRot-x.y.z.zip` with `git archive` (paths marked `export-ignore` in `.gitattributes` stay out) and publishes a GitHub Release with the notes from `VERSION.txt`.
+
+There is no CurseForge upload: CurseForge project `1708963` belongs to the original author. Do not put `X-Curse-Project-ID` back in the TOCs — the CurseForge app would "update" players back to the original 1.5.72.
+
+## Load order
+
+Both TOCs load the same files, in this order:
 
 `Credits.lua` → `Locale.lua` → `API.lua` → `Data.lua` → `Physics.lua` → `Lists.lua` → `APL.lua` → `Share.lua` → `UI.lua` → `Options.lua` → `Glow.lua` → `Rotations.lua` → `Core.lua`
 
-Tout l'état partagé vit dans la table `ns` (deuxième valeur de `...`). `Core.lua` démarre un `C_Timer.NewTicker(0.2)` comme ConROC (`interval = 0.20`). Pas d'`OnUpdate` sur tout le HUD : seulement la jauge physique (50 ms) si `showPhysics` est actif.
+All shared state lives in the `ns` table (second value of `...`). `Core.lua` starts a `C_Timer.NewTicker(0.2)`. There is no `OnUpdate` on the whole HUD, only on the timing bar (50 ms) when `showPhysics` is on.
 
-## Où modifier quoi
+## Where to change what
 
-| Besoin | Fichier |
+| Need | File |
 | --- | --- |
-| Nouveau sort, racial, interrupt, purge, cleanse, enchant d'arme | `Data.lua` (`ns.Spell`, puis les tables dérivées) |
-| Ordre par défaut mono / AoE / burst / défense | `Lists.lua` |
-| Sauvegarde, fusion, ajout, retrait d'un sort | `APL.lua` |
-| Import / export de profil | `Share.lua` |
-| Conditions « le sort est proposé » | `API.lua` (`StepOk`, `Ready`, `Resolve`) |
-| Timing Classic (swing, tir auto, énergie) | `Physics.lua` (`ns.db.showPhysics`) |
-| File HUD, défense, interrupt, arme | `Rotations.lua` |
-| Fenêtres, toolbar | `UI.lua` |
-| Options, glisser un sort | `Options.lua` |
-| Tête de mort sur les barres | `Glow.lua` |
-| Profils, slash, migrations | `Core.lua` |
-| Texte joueur | `Locale.lua` (`ns.T`) |
+| New spell, racial, interrupt, purge, cleanse, weapon imbue | `Data.lua` (`ns.Spell`, then the derived tables) |
+| Default order for single / AoE / burst / defense | `Lists.lua` |
+| Saving, merging, adding, removing a list step | `APL.lua` |
+| Profile import / export | `Share.lua` |
+| "Is this step suggested" conditions | `API.lua` (`StepOk`, `Ready`, `Resolve`) |
+| Classic timing (swing, auto shot, energy) | `Physics.lua` (`ns.db.showPhysics`) |
+| HUD queue, defense, interrupt, weapon | `Rotations.lua` |
+| Windows, toolbar | `UI.lua` |
+| Options, spell drag and drop | `Options.lua` |
+| Skull on the action bars | `Glow.lua` |
+| Profiles, slash commands, migrations | `Core.lua` |
+| Player text | `Locale.lua` (`ns.T`) |
 
-## Pièges qui cassent Forever
+## Pitfalls that break Forever
 
-- Résoudre un sort par **nom + grimoire** (`ns.API.Resolve`). Un ID Classic peut être remappé.
-- Rejeter les noms `TEST`, `(OLD)`, `(PT)` (`junkSpellName`).
-- Les buffs de `ns.MAINTENANCE_BUFF_IDS` sont retirés des listes de combat au chargement (`stripMaintFromApl`) et refusés par `AddAPL`.
-- Un sort avec un temps de recharge propre ne reste pas affiché : `NoteSpellCast` le retire jusqu'à la fin du CD, puis le pas suivant est testé. Le GCD ne compte pas. Ne pas court-circuiter `ns.API.Cooldown` avec `filler`. `filler` reste bloqué par `ns.Physics.Blocks` (Frappe héroïque hors fenêtre de swing, Aimed/Multi pendant le clip).
-- `opt.hold` / `ns.SPELL_HOLD` : après un cast, le sort n'est plus proposé pendant N secondes (DoT, HoT, ralentissement). Défauts Forever lab ; le joueur peut changer la valeur dans les options. `0` = pas de délai d'aura — la rotation suit toujours l'ordre et les conditions (pas un spam en boucle du même sort). Les holds **nuisibles** sont liés au GUID de la cible. Pour les sorts `nodebuff` / `nobuff`, l'aura lisible prime (absence → re-proposer ; remain ≤ ~6 s → refresh). Hold = secours si l'aura est secrète. Pas de combat log.
-- `roleAuto` (défaut vrai) : Hunter/Shaman basculent mêlée/distance selon la portée. Un clic manuel sur le rôle HUD désactive l'auto.
-- Stings Hunter : pas sur Mechanical / Elemental (`CreatureBlocked`). Notices pet : call / not attacking.
-- `stacks` / `totem` / `skipLow` / `creature` / `needanybuff` / `enemiesMin` : parité ConROC sans CLEU (Sunder 5, Seal→Judgement, totems, bleeds Undead, etc.).
-- Passage de rotation : un sort de la liste déjà lancé (même avant d'être affiché) est marqué « utilisé » pour ce tour ; le HUD propose le suivant. Quand plus rien n'est utilisable dans le tour, la file repart du début. Reset au changement de cible / sortie de combat.
-- `IsRotationAction` : un filler (éclair, boule de feu, frappe héroïque…) cède la case 1 à un horion / DoT / CD / proc plus bas prêt (portée `in` ou inconnue). Ne pas marquer Starfire ou Ice Lance comme action (pas de CD). Les raciaux auto-ajoutés ne volent pas le filler. Un même sort n’apparaît qu’une fois dans la file (sauf `swing`). Ne plus utiliser `require` / `requireAny` pour cacher un filler : l’ordre de liste gagne.
-- Fulgurance, Revanche, Riposte, Contre-attaque et Morsure de la mangouste utilisent `opt.proc` (`IsSpellUsable` vrai). Ne pas appeler `CombatLogGetCurrentEventInfo` : le client bloque l'addon.
-- `listVersion` est à 4 : au prochain login les listes sauvées sont remplacées par l'ordre ConROC Classic.
-- Le mode `auto` utilise la liste mono (`APLDefaults`) tant que `ns.API.EnemyCount()` est sous `autoEnemies` (défaut 3, minimum 2). Au-dessus, il utilise la liste `aoe`.
-- Le bouton HUD druide `hybrid` n'est pas une clé de liste. `ns.ActiveSpec()` choisit `cat`, `bear`, `heal`, `tank` ou `damage`.
-- `ns.ResetCurrentProfile` n'efface que le profil actif (`base`, `pve`, `pvp`, `custom`).
-- Incrémenter la version dans **les deux** TOC.
+- Resolve a spell by **name + spellbook** (`ns.API.Resolve`). A Classic ID can be remapped on Forever.
+- Reject `TEST`, `(OLD)` and `(PT)` names (`junkSpellName`).
+- Buffs in `ns.MAINTENANCE_BUFF_IDS` are stripped from combat lists at load (`stripMaintFromApl`) and refused by `AddAPL`.
+- The client often hides `GetSpellCooldown` in combat. `NoteSpellCast` starts the spell's base cooldown on a successful cast and the spell leaves the queue until it ends. The GCD does not count. Do not bypass `ns.API.Cooldown` with `filler`. `filler` is still blocked by `ns.Physics.Blocks` (Heroic Strike outside the swing window, Aimed/Multi during the auto-shot clip).
+- `opt.hold` / `ns.SPELL_HOLD`: after a cast, the spell is not suggested again for N seconds (DoT, HoT, snare). Players can edit the value. `0` = no aura delay. Harmful holds are bound to the target GUID. For `nodebuff` / `nobuff`, a readable aura wins (missing → suggest again; remaining ≤ ~6 s → refresh). The hold is the fallback when the aura is secret.
+- **Never read the combat log** (`CombatLogGetCurrentEventInfo`): the client blocks the add-on.
+- Do **not** register `SPELLS_CHANGED`: Forever fires it in storms on quest turn-in and level-up and it froze the client. Learn / level-up use a soft invalidate plus a 0.5 s bar refetch.
+- `roleAuto` (default true): Hunter / Shaman switch melee / ranged by range. A manual click on the HUD role button turns it off.
+- Hunter stings: not on Mechanical / Elemental (`CreatureBlocked`).
+- Rotation pass: a list spell already cast (even before it was shown) is marked "used" for this pass and the HUD suggests the next one. When nothing usable is left in the pass, the queue restarts from the top. Reset on target change and when leaving combat.
+- `IsRotationAction`: a filler gives slot 1 to a lower shock / DoT / cooldown / proc that is ready. Starfire and Ice Lance are not actions (no cooldown). Auto-added racials never steal the filler. A spell appears only once in the queue (except `swing`).
+- Overpower, Revenge, Riposte, Counterattack and Mongoose Bite use `opt.proc` (`IsSpellUsable` true).
+- `listVersion` is 4. Bump it only when saved lists must be thrown away: players lose their reordering.
+- `auto` mode uses the single-target list until `ns.API.EnemyCount()` reaches `autoEnemies` (default 3, minimum 2), then the `aoe` list. Nameplates must be on.
+- The druid HUD button `hybrid` is not a list key. `ns.ActiveSpec()` picks `cat`, `bear`, `heal`, `tank` or `damage`.
+- `ns.ResetCurrentProfile` only wipes the active profile (`base`, `pve`, `pvp`, `custom`).
+- Keep the two TOCs identical and bump the version in **both**.
+
+## Dev-only tools
+
+`dev/IconDump.lua` + `WoWForeverRot_IconDump.toc` form a separate developer add-on that dumps every known spell's client name and icon into `WoWForeverIconDumpDB` (`/wfrdump`, then `/reload`). It is not shipped. To use it, add a second junction:
+
+```bat
+mklink /J "E:\World of Warcraft\_classic_beta_\Interface\AddOns\WoWForeverRot_IconDump" "E:\ForeverRotation"
+```

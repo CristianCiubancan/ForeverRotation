@@ -1,11 +1,11 @@
 ---
-description: Changelogs CurseForge / VERSION.txt toujours ultra complets, Markdown, pro, anglais
+description: Changelogs VERSION.txt / GitHub Release toujours ultra complets, Markdown, pro, anglais
 alwaysApply: true
 ---
 
 # Changelogs pro (Markdown)
 
-Chaque bump de version exige un changelog **public**, **anglais**, **Markdown**, **ultra complet**. Même texte dans `VERSION.txt` (notes du jour) et en tête de `curseforge/CHANGELOG.md`.
+Chaque bump de version exige un changelog **public**, **anglais**, **Markdown**, **ultra complet**. Le texte vit dans `VERSION.txt` (notes du jour) ; le workflow `release.yml` le publie tel quel comme notes de la GitHub Release.
 
 ## Forme
 
@@ -56,4 +56,4 @@ spell can be suggested again. Self holds (Renew, Slice and Dice, …) stay globa
 No combat log — Forever-safe.
 ```
 
-Avant upload CurseForge : relire le preview Markdown (mode **Markdown**, pas WYSIWYG collé brut).
+Avant de pousser le tag : relire le rendu Markdown des notes (aperçu GitHub).

@@ -1,0 +1,13 @@
+## Interface: 16001
+## AllowLoadGameType: camelot
+## Title: |cffd4a017Forever|r |cff66ccffRotation|r |cff888888(Icon Dump, dev)|r
+## Notes: Developer tool for Forever Rotation. Dumps spell names and icons with /wfrdump. Not needed to play.
+## Author: CristianCiubancan
+## Version: dev
+## Category: WoW Forever
+## SavedVariables: WoWForeverIconDumpDB
+
+Locale.lua
+API.lua
+Data.lua
+dev\IconDump.lua
