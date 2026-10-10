@@ -27,7 +27,9 @@ Slots 2–3 were judged at "now" (`StepOk` gate 0.2 s). A spell coming off coold
 - **Predicted clock for slots 2–3.** After each pick, `PredictAdvance(SlotSeconds)` adds max(cast time, GCD). GCD is 1 s for rogues and cat form, 1.5 s otherwise; next-swing spells add 0. `StepOk` adds the offset to its cooldown/hold gate and subtracts it from aura and totem time left. `PredictConsume` starts predicted cooldowns at the slot's own time.
 - **Resource projection.** Mana and energy costs are subtracted per predicted cast; energy regenerates 20 per 2 s tick (from `Physics`, or about 10/s before a tick was seen). Rage is not projected: white hits and damage taken refill it at a rate the add-on cannot know. When the projection covers every cost of a spell, the live "not enough power" answer from the client is ignored for that later slot.
 - **Wait hints.** When nothing is pressable at a later slot's time, `WaitHint` lists the moments where a list spell's own cooldown, hold, aura refresh window or energy allows it; at most three of those moments (within 5 s) are re-checked. A first version scanned a fixed time grid and cost up to 6 ms per queue build for idle healers; hints bring the worst case to about 2 ms (1.5.72: 1.5 ms) and skip the search entirely when nothing time-based is pending.
-- **No real-state changes from predictions.** Anything evaluated with a positive predicted offset must not clear holds or touch the rotation pass.
+- **No real-state changes from predictions.** Anything evaluated while filling slots 2–3 (`PredictLater()`, which includes offset 0 after a cast or a next-swing slot 1) must not clear holds or touch the rotation pass.
+- **Only readable costs are projected.** If the client hides a cost entry, its live "not enough power" answer still applies (otherwise slots 2–3 would ignore rage).
+- **Energy is simulated spend by spend**, capping at max between spends, so ticks lost at full energy are not counted.
 
 ### Bug found on the way: queue flicker (present in 1.5.72)
 
@@ -35,7 +37,7 @@ Slots 2–3 were judged at "now" (`StepOk` gate 0.2 s). A spell coming off coold
 
 ### Consequence: when does a used spell come back?
 
-The accidental wipe had been doing a second job: it often reset the pass, so a spell like Fire Blast returned to slot 1 as soon as its cooldown ended. With the wipe gone, the documented pass rule ("walk the list until nothing unused is left") would make it wait behind every other unused spell. Rule chosen, consistent with the existing "a readable aura beats the hold" principle: **what the add-on can read beats the pass.** A used spell rejoins normal priority when its own tracked cooldown ends, or when a readable aura says cast it (missing, still stacking, due for refresh — which also catches a resisted DoT). Spells with nothing readable keep the pass behaviour.
+The accidental wipe had been doing a second job: it often reset the pass, so a spell like Fire Blast returned to slot 1 as soon as its cooldown ended. With the wipe gone, the documented pass rule ("walk the list until nothing unused is left") would make it wait behind every other unused spell. Rule chosen, consistent with the existing "a readable aura beats the hold" principle: **what the add-on can read beats the pass.** A used spell rejoins normal priority when its own tracked cooldown ends, or when its aura is up, readable and asks for a cast (still stacking, inside the refresh window). A first version also counted a *missing* aura; review showed that makes a spell whose debuff never lands (Scorch without the talent, immune targets) or is still in flight (Serpent Sting) repeat in slot 1, so missing auras follow the pass as before.
 
 ### Effect
 

@@ -240,10 +240,10 @@ function ns.BuildQueue()
 		return true
 	end
 	-- A step used in this pass rejoins normal priority as soon as the add-on
-	-- can see it is wanted again: its own cooldown ended, or a readable aura
-	-- says cast it (missing, still stacking, due for refresh). Steps with
-	-- nothing readable (fillers, plain strikes, secret auras) wait for the
-	-- pass to wrap, as before.
+	-- can see it is wanted again: its own cooldown ended, or its aura is up,
+	-- readable and asks for a cast (still stacking, refresh window). A missing
+	-- aura does not count: it may never land (no talent, immune) or still be
+	-- in flight. Everything else waits for the pass to wrap, as before.
 	local function readyAgain(step, shift)
 		local id = (API.Resolve and API.Resolve(step.id)) or step.id
 		if not id then
@@ -256,7 +256,7 @@ function ns.BuildQueue()
 				return true
 			end
 		end
-		return API.AuraWantsCast and API.AuraWantsCast(step.id, step.opt) or false
+		return API.AuraDue and API.AuraDue(step.id, step.opt) or false
 	end
 	local function open(step, shift)
 		return not isRotSpent(step) or readyAgain(step, shift)

@@ -25,9 +25,9 @@ Right after you cast, slot 1 could switch between two spells from one update to 
 After you cast a list spell, the HUD moves on down your list (the rotation pass). A used spell now rejoins the normal order as soon as the add-on can see it is wanted again:
 
 - its cooldown has ended (Fire Blast, Judgement, shocks, Bloodthirst…), or
-- its buff or debuff is missing, still stacking (Sunder Armor, Scorch, Lacerate), or due for a refresh. This also catches a DoT that was resisted.
+- its buff or debuff is up and still stacking (Sunder Armor, Scorch, Lacerate), or is inside its refresh window.
 
-Spells with nothing the add-on can read (fillers, plain strikes, auras that Forever hides) follow the pass as before.
+Everything else follows the pass as before: fillers, plain strikes, auras that Forever hides, and a buff or debuff that is simply missing (it may never land, for example without the talent or on an immune target, or still be in flight).
 
 ## "Only suggest spells that are on your action bars" filters again
 
