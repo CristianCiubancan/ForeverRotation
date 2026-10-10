@@ -7,10 +7,10 @@ damage  auto   far       Q=FaerieFire, Moonfire, InsectSwarm | D=MarkoftheWild
 damage  auto   secret    Q=FaerieFire, Moonfire, InsectSwarm | D=MarkoftheWild
 damage  auto   press1    Q=FaerieFire, Moonfire, InsectSwarm
 damage  auto   press2    Q=Moonfire, InsectSwarm, Starfire
-damage  auto   press3    Q=InsectSwarm, Starfire, Wrath
+damage  auto   press3    Q=InsectSwarm, Moonfire, Starfire
 damage  auto   press4    Q=Moonfire, Starfire, Wrath
-damage  auto   press5    Q=Moonfire, Starfire, Wrath
-damage  auto   press6    Q=Starfire, Wrath
+damage  auto   press5    Q=Starfire, Moonfire, InsectSwarm
+damage  auto   press6    Q=Moonfire, InsectSwarm, Wrath
 damage  single pull      Q=FaerieFire, Moonfire, InsectSwarm | D=MarkoftheWild
 damage  single fight     Q=FaerieFire, Moonfire, InsectSwarm | D=MarkoftheWild
 damage  single execute   Q=FaerieFire, Starfire, Wrath | D=MarkoftheWild
@@ -20,10 +20,10 @@ damage  single far       Q=FaerieFire, Moonfire, InsectSwarm | D=MarkoftheWild
 damage  single secret    Q=FaerieFire, Moonfire, InsectSwarm | D=MarkoftheWild
 damage  single press1    Q=FaerieFire, Moonfire, InsectSwarm
 damage  single press2    Q=Moonfire, InsectSwarm, Starfire
-damage  single press3    Q=InsectSwarm, Starfire, Wrath
+damage  single press3    Q=InsectSwarm, Moonfire, Starfire
 damage  single press4    Q=Moonfire, Starfire, Wrath
-damage  single press5    Q=Moonfire, Starfire, Wrath
-damage  single press6    Q=Starfire, Wrath
+damage  single press5    Q=Starfire, Moonfire, InsectSwarm
+damage  single press6    Q=Moonfire, InsectSwarm, Wrath
 damage  aoe    pull      Q=Hurricane, Moonfire, FaerieFire | D=MarkoftheWild
 damage  aoe    fight     Q=Hurricane, Moonfire, FaerieFire | D=MarkoftheWild
 damage  aoe    execute   Q=Hurricane, Moonfire, FaerieFire | D=MarkoftheWild
@@ -33,10 +33,10 @@ damage  aoe    far       Q=Hurricane, Moonfire, FaerieFire | D=MarkoftheWild
 damage  aoe    secret    Q=Hurricane, Moonfire, FaerieFire | D=MarkoftheWild
 damage  aoe    press1    Q=Hurricane, Moonfire, FaerieFire
 damage  aoe    press2    Q=Moonfire, FaerieFire, Starfire
-damage  aoe    press3    Q=FaerieFire, Starfire, Wrath
-damage  aoe    press4    Q=Hurricane, Moonfire, Starfire
-damage  aoe    press5    Q=Hurricane, Moonfire, Wrath
-damage  aoe    press6    Q=Hurricane, Moonfire, Starfire
+damage  aoe    press3    Q=FaerieFire, Moonfire, Starfire
+damage  aoe    press4    Q=Moonfire, Starfire, Wrath
+damage  aoe    press5    Q=Starfire, Moonfire, Wrath
+damage  aoe    press6    Q=Moonfire, Wrath, Hurricane
 damage  burst  pull      Q=NaturesSwiftness, Starfire, Moonfire | D=MarkoftheWild
 damage  burst  fight     Q=NaturesSwiftness, Starfire, Moonfire | D=MarkoftheWild
 damage  burst  execute   Q=NaturesSwiftness, Starfire, Moonfire | D=MarkoftheWild
@@ -47,9 +47,9 @@ damage  burst  secret    Q=NaturesSwiftness, Starfire, Moonfire | D=MarkoftheWil
 damage  burst  press1    Q=NaturesSwiftness, Starfire, Moonfire
 damage  burst  press2    Q=Starfire, Moonfire, InsectSwarm
 damage  burst  press3    Q=Moonfire, InsectSwarm, Wrath
-damage  burst  press4    Q=Starfire, InsectSwarm, Wrath
-damage  burst  press5    Q=Starfire, Moonfire, Wrath
-damage  burst  press6    Q=Starfire, Moonfire, Wrath
+damage  burst  press4    Q=InsectSwarm, Moonfire, Wrath
+damage  burst  press5    Q=Moonfire, Wrath, Starfire
+damage  burst  press6    Q=Wrath, Moonfire, InsectSwarm
 cat     auto   pull      Q=Prowl, Ravage, FeralChargeCat | D=MarkoftheWild
 cat     auto   fight     Q=FeralChargeCat, TigersFury, FaerieFireFeral | D=MarkoftheWild
 cat     auto   execute   Q=FeralChargeCat, TigersFury, FaerieFireFeral | D=MarkoftheWild
@@ -62,7 +62,7 @@ cat     auto   press2    Q=TigersFury, FaerieFireFeral, MangleBear
 cat     auto   press3    Q=FaerieFireFeral, MangleBear, Rake
 cat     auto   press4    Q=MangleBear, Rake, Shred
 cat     auto   press5    Q=Rake, Shred, Claw
-cat     auto   press6    Q=Shred, Claw
+cat     auto   press6    Q=Shred, Claw, Rake
 cat     single pull      Q=Prowl, Ravage, FeralChargeCat | D=MarkoftheWild
 cat     single fight     Q=FeralChargeCat, TigersFury, FaerieFireFeral | D=MarkoftheWild
 cat     single execute   Q=FeralChargeCat, TigersFury, FaerieFireFeral | D=MarkoftheWild
@@ -75,7 +75,7 @@ cat     single press2    Q=TigersFury, FaerieFireFeral, MangleBear
 cat     single press3    Q=FaerieFireFeral, MangleBear, Rake
 cat     single press4    Q=MangleBear, Rake, Shred
 cat     single press5    Q=Rake, Shred, Claw
-cat     single press6    Q=Shred, Claw
+cat     single press6    Q=Shred, Claw, Rake
 cat     aoe    pull      Q=TigersFury, Rake, Claw | D=MarkoftheWild
 cat     aoe    fight     Q=TigersFury, Rake, Claw | D=MarkoftheWild
 cat     aoe    execute   Q=TigersFury, Rake, Claw | D=MarkoftheWild
@@ -85,9 +85,9 @@ cat     aoe    far       Q=TigersFury, Rake, Claw | D=MarkoftheWild
 cat     aoe    secret    Q=Hurricane, Moonfire, FaerieFire | D=MarkoftheWild
 cat     aoe    press1    Q=TigersFury, Rake, Claw
 cat     aoe    press2    Q=Rake, Claw
-cat     aoe    press3    Q=Claw
+cat     aoe    press3    Q=Claw, Rake
 cat     aoe    press4    Q=Rake, Claw
-cat     aoe    press5    Q=Claw
+cat     aoe    press5    Q=Claw, Rake
 cat     aoe    press6    Q=Rake, Claw
 cat     burst  pull      Q=Berserk, TigersFury, Shred | D=MarkoftheWild
 cat     burst  fight     Q=Berserk, TigersFury, Shred | D=MarkoftheWild
@@ -99,8 +99,8 @@ cat     burst  secret    Q=NaturesSwiftness, Starfire, Moonfire | D=MarkoftheWil
 cat     burst  press1    Q=Berserk, TigersFury, Shred
 cat     burst  press2    Q=TigersFury, Shred, Ravage
 cat     burst  press3    Q=Shred, Ravage, Claw
-cat     burst  press4    Q=Shred, Ravage, Claw
-cat     burst  press5    Q=Shred, Ravage, Claw
+cat     burst  press4    Q=Ravage, Claw, Shred
+cat     burst  press5    Q=Claw, Shred, Ravage
 cat     burst  press6    Q=Shred, Ravage, Claw
 bear    auto   pull      Q=DemoralizingRoar, FaerieFireFeral, MangleBear | D=MarkoftheWild
 bear    auto   fight     Q=DemoralizingRoar, FaerieFireFeral, MangleBear | D=MarkoftheWild
@@ -112,9 +112,9 @@ bear    auto   secret    Q=FaerieFire, Moonfire, InsectSwarm | D=MarkoftheWild
 bear    auto   press1    Q=DemoralizingRoar, FaerieFireFeral, MangleBear
 bear    auto   press2    Q=FaerieFireFeral, MangleBear, Lacerate
 bear    auto   press3    Q=MangleBear, Lacerate, Maul
-bear    auto   press4    Q=Lacerate, Maul
-bear    auto   press5    Q=Maul
-bear    auto   press6    Q=Maul
+bear    auto   press4    Q=Lacerate, Maul, MangleBear
+bear    auto   press5    Q=Maul, MangleBear, Lacerate
+bear    auto   press6    Q=Maul, MangleBear, Lacerate
 bear    single pull      Q=DemoralizingRoar, FaerieFireFeral, MangleBear | D=MarkoftheWild
 bear    single fight     Q=DemoralizingRoar, FaerieFireFeral, MangleBear | D=MarkoftheWild
 bear    single execute   Q=DemoralizingRoar, FaerieFireFeral, MangleBear | D=MarkoftheWild
@@ -125,9 +125,9 @@ bear    single secret    Q=FaerieFire, Moonfire, InsectSwarm | D=MarkoftheWild
 bear    single press1    Q=DemoralizingRoar, FaerieFireFeral, MangleBear
 bear    single press2    Q=FaerieFireFeral, MangleBear, Lacerate
 bear    single press3    Q=MangleBear, Lacerate, Maul
-bear    single press4    Q=Lacerate, Maul
-bear    single press5    Q=Maul
-bear    single press6    Q=Maul
+bear    single press4    Q=Lacerate, Maul, MangleBear
+bear    single press5    Q=Maul, MangleBear, Lacerate
+bear    single press6    Q=Maul, MangleBear, Lacerate
 bear    aoe    pull      Q=DemoralizingRoar, MangleBear, Lacerate | D=MarkoftheWild
 bear    aoe    fight     Q=DemoralizingRoar, MangleBear, Lacerate | D=MarkoftheWild
 bear    aoe    execute   Q=DemoralizingRoar, MangleBear, Lacerate | D=MarkoftheWild
@@ -138,8 +138,8 @@ bear    aoe    secret    Q=Hurricane, Moonfire, FaerieFire | D=MarkoftheWild
 bear    aoe    press1    Q=DemoralizingRoar, MangleBear, Lacerate
 bear    aoe    press2    Q=MangleBear, Lacerate, Swipe
 bear    aoe    press3    Q=Lacerate, Swipe, Maul
-bear    aoe    press4    Q=Swipe, Maul
-bear    aoe    press5    Q=Swipe, Maul
+bear    aoe    press4    Q=Swipe, Maul, MangleBear
+bear    aoe    press5    Q=Maul, Swipe, MangleBear
 bear    aoe    press6    Q=MangleBear, Swipe, Maul
 bear    burst  pull      Q=MangleBear, Maul, Swipe | D=MarkoftheWild
 bear    burst  fight     Q=Enrage, MangleBear, Maul | D=MarkoftheWild
@@ -151,9 +151,9 @@ bear    burst  secret    Q=NaturesSwiftness, Starfire, Moonfire | D=MarkoftheWil
 bear    burst  press1    Q=Enrage, MangleBear, Maul
 bear    burst  press2    Q=MangleBear, Maul, Swipe
 bear    burst  press3    Q=Maul, Swipe, Bash
-bear    burst  press4    Q=Maul, Swipe, Bash
-bear    burst  press5    Q=Maul, Swipe, Bash
-bear    burst  press6    Q=MangleBear, Swipe, Bash
+bear    burst  press4    Q=Swipe, Bash, MangleBear
+bear    burst  press5    Q=Bash, MangleBear, Maul
+bear    burst  press6    Q=MangleBear, Maul, Swipe
 heal    auto   pull      Q=Moonfire, Wrath | D=MarkoftheWild
 heal    auto   fight     Q=Innervate, Moonfire, Wrath | D=MarkoftheWild
 heal    auto   execute   Q=Innervate, Moonfire, Wrath | D=MarkoftheWild
@@ -163,9 +163,9 @@ heal    auto   far       Q=Innervate, Moonfire, Wrath | D=MarkoftheWild
 heal    auto   secret    Q=Innervate, Moonfire, Wrath | D=MarkoftheWild
 heal    auto   press1    Q=Innervate, Moonfire, Wrath
 heal    auto   press2    Q=Moonfire, Wrath
-heal    auto   press3    Q=Wrath
+heal    auto   press3    Q=Wrath, Moonfire
 heal    auto   press4    Q=Moonfire, Wrath
-heal    auto   press5    Q=Wrath
+heal    auto   press5    Q=Wrath, Moonfire
 heal    auto   press6    Q=Moonfire, Wrath
 heal    single pull      Q=Moonfire, Wrath | D=MarkoftheWild
 heal    single fight     Q=Innervate, Moonfire, Wrath | D=MarkoftheWild
@@ -176,9 +176,9 @@ heal    single far       Q=Innervate, Moonfire, Wrath | D=MarkoftheWild
 heal    single secret    Q=Innervate, Moonfire, Wrath | D=MarkoftheWild
 heal    single press1    Q=Innervate, Moonfire, Wrath
 heal    single press2    Q=Moonfire, Wrath
-heal    single press3    Q=Wrath
+heal    single press3    Q=Wrath, Moonfire
 heal    single press4    Q=Moonfire, Wrath
-heal    single press5    Q=Wrath
+heal    single press5    Q=Wrath, Moonfire
 heal    single press6    Q=Moonfire, Wrath
 heal    aoe    pull      Q=Hurricane | D=MarkoftheWild
 heal    aoe    fight     Q=Hurricane | D=MarkoftheWild
@@ -213,9 +213,9 @@ tank    auto   secret    Q=DemoralizingRoar, FaerieFireFeral, MangleBear | D=Mar
 tank    auto   press1    Q=DemoralizingRoar, FaerieFireFeral, MangleBear
 tank    auto   press2    Q=FaerieFireFeral, MangleBear, Lacerate
 tank    auto   press3    Q=MangleBear, Lacerate, Maul
-tank    auto   press4    Q=Lacerate, Maul
-tank    auto   press5    Q=Maul
-tank    auto   press6    Q=Maul
+tank    auto   press4    Q=Lacerate, Maul, MangleBear
+tank    auto   press5    Q=Maul, MangleBear, Lacerate
+tank    auto   press6    Q=Maul, MangleBear, Lacerate
 tank    single pull      Q=DemoralizingRoar, FaerieFireFeral, MangleBear | D=MarkoftheWild
 tank    single fight     Q=DemoralizingRoar, FaerieFireFeral, MangleBear | D=MarkoftheWild
 tank    single execute   Q=DemoralizingRoar, FaerieFireFeral, MangleBear | D=MarkoftheWild
@@ -226,9 +226,9 @@ tank    single secret    Q=DemoralizingRoar, FaerieFireFeral, MangleBear | D=Mar
 tank    single press1    Q=DemoralizingRoar, FaerieFireFeral, MangleBear
 tank    single press2    Q=FaerieFireFeral, MangleBear, Lacerate
 tank    single press3    Q=MangleBear, Lacerate, Maul
-tank    single press4    Q=Lacerate, Maul
-tank    single press5    Q=Maul
-tank    single press6    Q=Maul
+tank    single press4    Q=Lacerate, Maul, MangleBear
+tank    single press5    Q=Maul, MangleBear, Lacerate
+tank    single press6    Q=Maul, MangleBear, Lacerate
 tank    aoe    pull      Q=DemoralizingRoar, MangleBear, Lacerate | D=MarkoftheWild
 tank    aoe    fight     Q=DemoralizingRoar, MangleBear, Lacerate | D=MarkoftheWild
 tank    aoe    execute   Q=DemoralizingRoar, MangleBear, Lacerate | D=MarkoftheWild
@@ -239,8 +239,8 @@ tank    aoe    secret    Q=DemoralizingRoar, MangleBear, Lacerate | D=MarkoftheW
 tank    aoe    press1    Q=DemoralizingRoar, MangleBear, Lacerate
 tank    aoe    press2    Q=MangleBear, Lacerate, Swipe
 tank    aoe    press3    Q=Lacerate, Swipe, Maul
-tank    aoe    press4    Q=Swipe, Maul
-tank    aoe    press5    Q=Swipe, Maul
+tank    aoe    press4    Q=Swipe, Maul, MangleBear
+tank    aoe    press5    Q=Maul, Swipe, MangleBear
 tank    aoe    press6    Q=MangleBear, Swipe, Maul
 tank    burst  pull      Q=MangleBear, Swipe, Maul | D=MarkoftheWild
 tank    burst  fight     Q=Enrage, MangleBear, Swipe | D=MarkoftheWild
@@ -252,6 +252,6 @@ tank    burst  secret    Q=Enrage, MangleBear, Swipe | D=MarkoftheWild
 tank    burst  press1    Q=Enrage, MangleBear, Swipe
 tank    burst  press2    Q=MangleBear, Swipe, Maul
 tank    burst  press3    Q=Swipe, Maul, Bash
-tank    burst  press4    Q=Swipe, Maul, Bash
-tank    burst  press5    Q=Swipe, Maul, Bash
-tank    burst  press6    Q=MangleBear, Maul, Bash
+tank    burst  press4    Q=Maul, Bash, Swipe
+tank    burst  press5    Q=Bash, MangleBear, Swipe
+tank    burst  press6    Q=MangleBear, Swipe, Maul

@@ -9,8 +9,8 @@ damage  auto   press1    Q=Pyroblast, FireBlast, IceLance
 damage  auto   press2    Q=FireBlast, IceLance, Scorch
 damage  auto   press3    Q=IceLance, Scorch, Frostbolt
 damage  auto   press4    Q=Scorch, Frostbolt, ArcaneMissiles
-damage  auto   press5    Q=Frostbolt, ArcaneMissiles, ArcaneBlast
-damage  auto   press6    Q=ArcaneMissiles, ArcaneBlast, FrostfireBolt
+damage  auto   press5    Q=Scorch, Frostbolt, ArcaneMissiles
+damage  auto   press6    Q=Scorch, Frostbolt, FireBlast
 damage  single pull      Q=Pyroblast, FireBlast, IceLance | D=ArcaneIntellect
 damage  single fight     Q=Pyroblast, FireBlast, IceLance | D=ArcaneIntellect
 damage  single execute   Q=Pyroblast, FireBlast, IceLance | D=ArcaneIntellect
@@ -22,8 +22,8 @@ damage  single press1    Q=Pyroblast, FireBlast, IceLance
 damage  single press2    Q=FireBlast, IceLance, Scorch
 damage  single press3    Q=IceLance, Scorch, Frostbolt
 damage  single press4    Q=Scorch, Frostbolt, ArcaneMissiles
-damage  single press5    Q=Frostbolt, ArcaneMissiles, ArcaneBlast
-damage  single press6    Q=ArcaneMissiles, ArcaneBlast, FrostfireBolt
+damage  single press5    Q=Scorch, Frostbolt, ArcaneMissiles
+damage  single press6    Q=Scorch, Frostbolt, FireBlast
 damage  aoe    pull      Q=ArcaneExplosion, BlastWave, Flamestrike | D=ArcaneIntellect
 damage  aoe    fight     Q=ArcaneExplosion, BlastWave, Flamestrike | D=ArcaneIntellect
 damage  aoe    execute   Q=ArcaneExplosion, BlastWave, Flamestrike | D=ArcaneIntellect
@@ -35,8 +35,8 @@ damage  aoe    press1    Q=ArcaneExplosion, BlastWave, Flamestrike
 damage  aoe    press2    Q=BlastWave, Flamestrike, Blizzard
 damage  aoe    press3    Q=Flamestrike, Blizzard, ConeofCold
 damage  aoe    press4    Q=Blizzard, ConeofCold, FrostNova
-damage  aoe    press5    Q=ArcaneExplosion, Blizzard, ConeofCold
-damage  aoe    press6    Q=ArcaneExplosion, Blizzard, FrostNova
+damage  aoe    press5    Q=ConeofCold, FrostNova, ArcaneExplosion
+damage  aoe    press6    Q=FrostNova, ArcaneExplosion, Blizzard
 damage  burst  pull      Q=Combustion, PresenceofMind, ArcanePower | D=ArcaneIntellect
 damage  burst  fight     Q=Combustion, PresenceofMind, ArcanePower | D=ArcaneIntellect
 damage  burst  execute   Q=Combustion, PresenceofMind, ArcanePower | D=ArcaneIntellect

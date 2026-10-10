@@ -409,6 +409,11 @@ local function energyTickRemain()
 	return ENERGY_TICK - (elapsed % ENERGY_TICK)
 end
 
+-- Seconds until the next 2 s energy tick, or nil before one was observed.
+function ns.Physics.EnergyTickRemain()
+	return energyTickRemain()
+end
+
 function ns.Physics.SwingWindow()
 	local left = handRemain(mhAt, mhSpeed)
 	if left == nil then
