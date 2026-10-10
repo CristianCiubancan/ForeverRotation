@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Lua 5.1 (the client's version)
+        run: sudo apt-get update && sudo apt-get install -y lua5.1
+
+      - name: Syntax check every Lua file
+        run: |
+          status=0
+          for f in $(git ls-files '*.lua'); do
+            luac5.1 -p "$f" || status=1
+          done
+          exit $status
+
+      - name: Tests (all classes, golden queues)
+        run: lua5.1 tests/run.lua

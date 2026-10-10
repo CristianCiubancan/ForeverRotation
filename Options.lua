@@ -4,7 +4,7 @@ local IMG = "Interface\\AddOns\\WoWForeverRot\\images\\"
 local SITE_URL = "https://wow-forever.fr"
 local DISCORD_URL = "https://discord.gg/qmb2uDu8Z3"
 local CURSE_URL = "https://www.curseforge.com/wow/addons/forever-rot"
-local GITHUB_URL = "https://github.com/ssablon/ForeverRotation"
+local GITHUB_URL = "https://github.com/CristianCiubancan/ForeverRotation"
 
 local editSpec
 local editMode

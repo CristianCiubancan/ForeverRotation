@@ -1,0 +1,17 @@
+* text=auto
+*.tga binary
+*.png binary
+# Golden files are compared byte for byte on Windows and on CI.
+tests/golden/** text eol=lf
+
+# Left out of the release zip (git archive). Players get only the addon.
+.github export-ignore
+.cursor export-ignore
+docs export-ignore
+tests export-ignore
+dev export-ignore
+AGENTS.md export-ignore
+CLAUDE.md export-ignore
+.gitattributes export-ignore
+.gitignore export-ignore
+WoWForeverRot_IconDump.toc export-ignore

@@ -1,0 +1,52 @@
+damage  auto   pull      Q=SummonImp, CurseofAgony, Corruption | D=DemonArmor
+damage  auto   fight     Q=SummonImp, CurseofAgony, Corruption | D=DemonArmor
+damage  auto   execute   Q=SummonImp, Shadowburn, ShadowBolt | D=DemonArmor
+damage  auto   hurt      Q=SummonImp, CurseofAgony, Corruption | D=DemonArmor
+damage  auto   aoe       Q=RainofFire, Corruption, CurseofAgony | D=DemonArmor
+damage  auto   far       Q=SummonImp, CurseofAgony, Corruption | D=DemonArmor
+damage  auto   secret    Q=SummonImp, CurseofAgony, Corruption | D=DemonArmor
+damage  auto   press1    Q=SummonImp, CurseofAgony, Corruption
+damage  auto   press2    Q=CurseofAgony, Corruption, Wrack
+damage  auto   press3    Q=Corruption, Wrack, SiphonLife
+damage  auto   press4    Q=Wrack, SiphonLife, Immolate
+damage  auto   press5    Q=SiphonLife, Immolate, Incinerate
+damage  auto   press6    Q=Immolate, Incinerate, Conflagrate
+damage  single pull      Q=SummonImp, CurseofAgony, Corruption | D=DemonArmor
+damage  single fight     Q=SummonImp, CurseofAgony, Corruption | D=DemonArmor
+damage  single execute   Q=SummonImp, Shadowburn, ShadowBolt | D=DemonArmor
+damage  single hurt      Q=SummonImp, CurseofAgony, Corruption | D=DemonArmor
+damage  single aoe       Q=SummonImp, CurseofAgony, Corruption | D=DemonArmor
+damage  single far       Q=SummonImp, CurseofAgony, Corruption | D=DemonArmor
+damage  single secret    Q=SummonImp, CurseofAgony, Corruption | D=DemonArmor
+damage  single press1    Q=SummonImp, CurseofAgony, Corruption
+damage  single press2    Q=CurseofAgony, Corruption, Wrack
+damage  single press3    Q=Corruption, Wrack, SiphonLife
+damage  single press4    Q=Wrack, SiphonLife, Immolate
+damage  single press5    Q=SiphonLife, Immolate, Incinerate
+damage  single press6    Q=Immolate, Incinerate, Conflagrate
+damage  aoe    pull      Q=RainofFire, Corruption, CurseofAgony | D=DemonArmor
+damage  aoe    fight     Q=RainofFire, Corruption, CurseofAgony | D=DemonArmor
+damage  aoe    execute   Q=RainofFire, Corruption, CurseofAgony | D=DemonArmor
+damage  aoe    hurt      Q=RainofFire, Hellfire, Corruption | D=DemonArmor
+damage  aoe    aoe       Q=RainofFire, Corruption, CurseofAgony | D=DemonArmor
+damage  aoe    far       Q=RainofFire, Corruption, CurseofAgony | D=DemonArmor
+damage  aoe    secret    Q=RainofFire, Corruption, CurseofAgony | D=DemonArmor
+damage  aoe    press1    Q=RainofFire, Corruption, CurseofAgony
+damage  aoe    press2    Q=Corruption, CurseofAgony, HowlofTerror
+damage  aoe    press3    Q=CurseofAgony, HowlofTerror, ShadowBolt
+damage  aoe    press4    Q=RainofFire, HowlofTerror, ShadowBolt
+damage  aoe    press5    Q=RainofFire, ShadowBolt
+damage  aoe    press6    Q=RainofFire, Corruption, ShadowBolt
+damage  burst  pull      Q=ShadowBolt | D=DemonArmor
+damage  burst  fight     Q=ShadowBolt | D=DemonArmor
+damage  burst  execute   Q=Shadowburn, ShadowBolt | D=DemonArmor
+damage  burst  hurt      Q=ShadowBolt | D=DemonArmor
+damage  burst  aoe       Q=ShadowBolt | D=DemonArmor
+damage  burst  far       Q=ShadowBolt | D=DemonArmor
+damage  burst  secret    Q=ShadowBolt | D=DemonArmor
+damage  burst  press1    Q=ShadowBolt
+damage  burst  press2    Q=ShadowBolt
+damage  burst  press3    Q=ShadowBolt
+damage  burst  press4    Q=ShadowBolt
+damage  burst  press5    Q=ShadowBolt
+damage  burst  press6    Q=ShadowBolt

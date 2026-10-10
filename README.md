@@ -4,9 +4,9 @@ Rotation helper for **WoW Forever** (Classic Era combat on the camelot / Midnigh
 
 It shows the next three abilities on a small HUD, flashes a skull on the matching action-bar button, and also tracks heals, long defense buffs, interrupts, purges, cleanses, and weapon imbues. It does **not** cast spells for you.
 
-Author: [Vohnka](https://wow-forever.fr) · Current version: **1.5.72**
+Original author: [Vohnka](https://wow-forever.fr) · Maintained from 1.6.0 by [CristianCiubancan](https://github.com/CristianCiubancan) · Latest version: [Releases](https://github.com/CristianCiubancan/ForeverRotation/releases/latest)
 
-**Development status:** Active development by Vohnka has **stopped**. The project is **open source** (MIT). Source and forks: [github.com/ssablon/ForeverRotation](https://github.com/ssablon/ForeverRotation). Anyone may continue improving it.
+**Development status:** Vohnka stopped active development at 1.5.72 and open-sourced the add-on (MIT). This repository continues it as the successor. Your settings, profiles, and custom lists from 1.5.72 carry over unchanged.
 
 Player-facing text is translated for `enUS`, `frFR`, `deDE`, `esES`, `esMX`, `ruRU`, `zhCN`, `zhTW`, `ptBR`, `itIT`, and `koKR`. Missing strings fall back to English.
 
@@ -20,16 +20,18 @@ Forever uses its own spell IDs for some abilities (for example Devotion Aura). T
 
 ## Install
 
-1. Copy the `WoWForeverRot` folder into:
+1. Download `WoWForeverRot-x.y.z.zip` from the [latest release](https://github.com/CristianCiubancan/ForeverRotation/releases/latest).
+2. Unzip it into `World of Warcraft\_classic_beta_\Interface\AddOns\` so you get:
 
    `World of Warcraft\_classic_beta_\Interface\AddOns\WoWForeverRot`
 
-2. Restart the client or type `/reload`.
-3. Enable **Forever Rotation** in the add-on list.
+   Coming from 1.5.72? Delete the old `WoWForeverRot` folder first. Your settings live in `WTF\` and are kept.
+3. Restart the client or type `/reload`.
+4. Enable **Forever Rotation** in the add-on list.
 
 The folder must contain both `.toc` files, the `.lua` files, and the `images/` directory.
 
-The CurseForge app often installs into official Classic. On Forever, unzip by hand into `_classic_beta_`.
+The CurseForge app installs into official Classic and only knows the original 1.5.72. On Forever, unzip by hand into `_classic_beta_`.
 
 ## What it does
 
@@ -154,16 +156,18 @@ Saved variables: `WoWForeverRotDB`, `WoWForeverSharedDB` (credit line shared wit
 
 The player guide above is not the implementation map. Before changing code, read [AGENTS.md](AGENTS.md) and [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
-The git repository is the source of truth. The copy under `World of Warcraft\_classic_beta_\Interface\AddOns\WoWForeverRot` must be refreshed from this repo. Do not replace this repo with files taken from the game folder.
+The git repository is the source of truth. For development, make the game folder a directory junction to your clone (see AGENTS.md) and `/reload` after each edit. Run the offline tests with Lua 5.1: `lua5.1 tests/run.lua`. Pull requests are welcome; CI runs the tests for all nine classes.
 
 ## Support
 
-Download: [https://www.curseforge.com/wow/addons/forever-rot](https://www.curseforge.com/wow/addons/forever-rot).
+Download: [GitHub Releases](https://github.com/CristianCiubancan/ForeverRotation/releases).
 
-Source (public): [https://github.com/ssablon/ForeverRotation](https://github.com/ssablon/ForeverRotation).
+Bugs and suggestions: [GitHub Issues](https://github.com/CristianCiubancan/ForeverRotation/issues). Please include your class, level, role, and combat mode.
 
-Community chat on Discord (English): [https://discord.gg/qmb2uDu8Z3](https://discord.gg/qmb2uDu8Z3) (`#support`, `#bugs`, `#suggestions`). Website: [https://wow-forever.fr](https://wow-forever.fr).
+Source: [github.com/CristianCiubancan/ForeverRotation](https://github.com/CristianCiubancan/ForeverRotation), a fork of the original [ssablon/ForeverRotation](https://github.com/ssablon/ForeverRotation).
+
+The original author's website and community: [wow-forever.fr](https://wow-forever.fr), [Discord](https://discord.gg/qmb2uDu8Z3).
 
 ## License
 
-[MIT](LICENSE) — free to use, modify, fork, and redistribute. © Vohnka / [wow-forever.fr](https://wow-forever.fr). Active development by the original author has stopped; contributions and forks are welcome.
+[MIT](LICENSE) — free to use, modify, fork, and redistribute. © Vohnka / [wow-forever.fr](https://wow-forever.fr) (original author), © CristianCiubancan (maintenance from 1.6.0).

@@ -1,0 +1,104 @@
+range   auto   pull      Q=CallPet, HuntersMark, SerpentSting | D=AspectHawk
+range   auto   fight     Q=CallPet, HuntersMark, SerpentSting | D=AspectHawk
+range   auto   execute   Q=CallPet, AimedShot, SniperShot | D=AspectHawk
+range   auto   hurt      Q=CallPet, HuntersMark, SerpentSting | D=AspectHawk
+range   auto   aoe       Q=HuntersMark, MultiShot, Volley | D=AspectHawk
+range   auto   far       Q=CallPet, HuntersMark, SerpentSting | D=AspectHawk
+range   auto   secret    Q=CallPet, HuntersMark, SerpentSting | D=AspectHawk
+range   auto   press1    Q=CallPet, HuntersMark, SerpentSting
+range   auto   press2    Q=HuntersMark, SerpentSting, AimedShot
+range   auto   press3    Q=SerpentSting, AimedShot, SniperShot
+range   auto   press4    Q=AimedShot, SniperShot, MultiShot
+range   auto   press5    Q=SniperShot, MultiShot, ArcaneShot
+range   auto   press6    Q=MultiShot, ArcaneShot, AutoShot
+range   single pull      Q=CallPet, HuntersMark, SerpentSting | D=AspectHawk
+range   single fight     Q=CallPet, HuntersMark, SerpentSting | D=AspectHawk
+range   single execute   Q=CallPet, AimedShot, SniperShot | D=AspectHawk
+range   single hurt      Q=CallPet, HuntersMark, SerpentSting | D=AspectHawk
+range   single aoe       Q=CallPet, HuntersMark, SerpentSting | D=AspectHawk
+range   single far       Q=CallPet, HuntersMark, SerpentSting | D=AspectHawk
+range   single secret    Q=CallPet, HuntersMark, SerpentSting | D=AspectHawk
+range   single press1    Q=CallPet, HuntersMark, SerpentSting
+range   single press2    Q=HuntersMark, SerpentSting, AimedShot
+range   single press3    Q=SerpentSting, AimedShot, SniperShot
+range   single press4    Q=AimedShot, SniperShot, MultiShot
+range   single press5    Q=SniperShot, MultiShot, ArcaneShot
+range   single press6    Q=MultiShot, ArcaneShot, AutoShot
+range   aoe    pull      Q=HuntersMark, MultiShot, Volley | D=AspectHawk
+range   aoe    fight     Q=HuntersMark, MultiShot, Volley | D=AspectHawk
+range   aoe    execute   Q=HuntersMark, MultiShot, Volley | D=AspectHawk
+range   aoe    hurt      Q=HuntersMark, MultiShot, Volley | D=AspectHawk
+range   aoe    aoe       Q=HuntersMark, MultiShot, Volley | D=AspectHawk
+range   aoe    far       Q=HuntersMark, MultiShot, Volley | D=AspectHawk
+range   aoe    secret    Q=HuntersMark, MultiShot, Volley | D=AspectHawk
+range   aoe    press1    Q=HuntersMark, MultiShot, Volley
+range   aoe    press2    Q=MultiShot, Volley, ArcaneShot
+range   aoe    press3    Q=Volley, ArcaneShot, SerpentSting
+range   aoe    press4    Q=ArcaneShot, SerpentSting, AutoShot
+range   aoe    press5    Q=Volley, SerpentSting, AutoShot
+range   aoe    press6    Q=Volley, AutoShot
+range   burst  pull      Q=RapidFire, BestialWrath, Intimidation | D=AspectHawk
+range   burst  fight     Q=RapidFire, BestialWrath, Intimidation | D=AspectHawk
+range   burst  execute   Q=RapidFire, BestialWrath, Intimidation | D=AspectHawk
+range   burst  hurt      Q=RapidFire, BestialWrath, Intimidation | D=AspectHawk
+range   burst  aoe       Q=RapidFire, BestialWrath, Intimidation | D=AspectHawk
+range   burst  far       Q=RapidFire, BestialWrath, Intimidation | D=AspectHawk
+range   burst  secret    Q=RapidFire, BestialWrath, Intimidation | D=AspectHawk
+range   burst  press1    Q=RapidFire, BestialWrath, Intimidation
+range   burst  press2    Q=BestialWrath, Intimidation, AimedShot
+range   burst  press3    Q=Intimidation, AimedShot, SniperShot
+range   burst  press4    Q=AimedShot, SniperShot, MultiShot
+range   burst  press5    Q=SniperShot, MultiShot, ArcaneShot
+range   burst  press6    Q=MultiShot, ArcaneShot, AutoShot
+melee   auto   pull      Q=CallPet, HuntersMark, StriderKick | D=AspectHawk
+melee   auto   fight     Q=CallPet, HuntersMark, StriderKick | D=AspectHawk
+melee   auto   execute   Q=CallPet, StriderKick, Lacerate | D=AspectHawk
+melee   auto   hurt      Q=CallPet, HuntersMark, StriderKick | D=AspectHawk
+melee   auto   aoe       Q=MultiShot, Volley, StriderKick | D=AspectHawk
+melee   auto   far       Q=CallPet, HuntersMark, StriderKick | D=AspectHawk
+melee   auto   secret    Q=CallPet, HuntersMark, StriderKick | D=AspectHawk
+melee   auto   press1    Q=CallPet, HuntersMark, StriderKick
+melee   auto   press2    Q=HuntersMark, StriderKick, Lacerate
+melee   auto   press3    Q=StriderKick, Lacerate, WingClip
+melee   auto   press4    Q=Lacerate, WingClip, RaptorStrike
+melee   auto   press5    Q=CallPet, WingClip, RaptorStrike
+melee   auto   press6    Q=CallPet, RaptorStrike
+melee   single pull      Q=CallPet, HuntersMark, StriderKick | D=AspectHawk
+melee   single fight     Q=CallPet, HuntersMark, StriderKick | D=AspectHawk
+melee   single execute   Q=CallPet, StriderKick, Lacerate | D=AspectHawk
+melee   single hurt      Q=CallPet, HuntersMark, StriderKick | D=AspectHawk
+melee   single aoe       Q=CallPet, HuntersMark, StriderKick | D=AspectHawk
+melee   single far       Q=CallPet, HuntersMark, StriderKick | D=AspectHawk
+melee   single secret    Q=CallPet, HuntersMark, StriderKick | D=AspectHawk
+melee   single press1    Q=CallPet, HuntersMark, StriderKick
+melee   single press2    Q=HuntersMark, StriderKick, Lacerate
+melee   single press3    Q=StriderKick, Lacerate, WingClip
+melee   single press4    Q=Lacerate, WingClip, RaptorStrike
+melee   single press5    Q=CallPet, WingClip, RaptorStrike
+melee   single press6    Q=CallPet, RaptorStrike
+melee   aoe    pull      Q=MultiShot, Volley, StriderKick | D=AspectHawk
+melee   aoe    fight     Q=MultiShot, Volley, StriderKick | D=AspectHawk
+melee   aoe    execute   Q=MultiShot, Volley, StriderKick | D=AspectHawk
+melee   aoe    hurt      Q=MultiShot, Volley, StriderKick | D=AspectHawk
+melee   aoe    aoe       Q=MultiShot, Volley, StriderKick | D=AspectHawk
+melee   aoe    far       Q=MultiShot, Volley, StriderKick | D=AspectHawk
+melee   aoe    secret    Q=MultiShot, Volley, StriderKick | D=AspectHawk
+melee   aoe    press1    Q=MultiShot, Volley, StriderKick
+melee   aoe    press2    Q=Volley, StriderKick, RaptorStrike
+melee   aoe    press3    Q=Volley, StriderKick, RaptorStrike
+melee   aoe    press4    Q=Volley, RaptorStrike
+melee   aoe    press5    Q=Volley, RaptorStrike
+melee   aoe    press6    Q=Volley, RaptorStrike
+melee   burst  pull      Q=RapidFire, BestialWrath, Intimidation | D=AspectHawk
+melee   burst  fight     Q=RapidFire, BestialWrath, Intimidation | D=AspectHawk
+melee   burst  execute   Q=RapidFire, BestialWrath, Intimidation | D=AspectHawk
+melee   burst  hurt      Q=RapidFire, BestialWrath, Intimidation | D=AspectHawk
+melee   burst  aoe       Q=RapidFire, BestialWrath, Intimidation | D=AspectHawk
+melee   burst  far       Q=RapidFire, BestialWrath, Intimidation | D=AspectHawk
+melee   burst  secret    Q=RapidFire, BestialWrath, Intimidation | D=AspectHawk
+melee   burst  press1    Q=RapidFire, BestialWrath, Intimidation
+melee   burst  press2    Q=BestialWrath, Intimidation, StriderKick
+melee   burst  press3    Q=Intimidation, StriderKick, RaptorStrike
+melee   burst  press4    Q=StriderKick, RaptorStrike
+melee   burst  press5    Q=RaptorStrike
+melee   burst  press6    Q=RaptorStrike
