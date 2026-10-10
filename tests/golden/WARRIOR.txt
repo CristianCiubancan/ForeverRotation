@@ -1,0 +1,104 @@
+damage  auto   pull      Q=Charge, VictoryRush, SpearingStrike | D=BattleShout
+damage  auto   fight     Q=Bloodrage, VictoryRush, SpearingStrike | D=BattleShout
+damage  auto   execute   Q=Bloodrage, Execute, VictoryRush | D=BattleShout
+damage  auto   hurt      Q=VictoryRush, SpearingStrike, Bloodthirst | D=BattleShout
+damage  auto   aoe       Q=SweepingStrikes, Whirlwind, Cleave | D=BattleShout
+damage  auto   far       Q=Bloodrage, VictoryRush, SpearingStrike | D=BattleShout
+damage  auto   secret    Q=Bloodrage, VictoryRush, SpearingStrike | D=BattleShout
+damage  auto   press1    Q=Bloodrage, VictoryRush, SpearingStrike
+damage  auto   press2    Q=VictoryRush, SpearingStrike, Bloodthirst
+damage  auto   press3    Q=SpearingStrike, Bloodthirst, ShieldSlam
+damage  auto   press4    Q=Bloodthirst, ShieldSlam, MortalStrike
+damage  auto   press5    Q=ShieldSlam, MortalStrike, Rend
+damage  auto   press6    Q=MortalStrike, Rend, SunderArmor
+damage  single pull      Q=Charge, VictoryRush, SpearingStrike | D=BattleShout
+damage  single fight     Q=Bloodrage, VictoryRush, SpearingStrike | D=BattleShout
+damage  single execute   Q=Bloodrage, Execute, VictoryRush | D=BattleShout
+damage  single hurt      Q=VictoryRush, SpearingStrike, Bloodthirst | D=BattleShout
+damage  single aoe       Q=Bloodrage, VictoryRush, SpearingStrike | D=BattleShout
+damage  single far       Q=Bloodrage, VictoryRush, SpearingStrike | D=BattleShout
+damage  single secret    Q=Bloodrage, VictoryRush, SpearingStrike | D=BattleShout
+damage  single press1    Q=Bloodrage, VictoryRush, SpearingStrike
+damage  single press2    Q=VictoryRush, SpearingStrike, Bloodthirst
+damage  single press3    Q=SpearingStrike, Bloodthirst, ShieldSlam
+damage  single press4    Q=Bloodthirst, ShieldSlam, MortalStrike
+damage  single press5    Q=ShieldSlam, MortalStrike, Rend
+damage  single press6    Q=MortalStrike, Rend, SunderArmor
+damage  aoe    pull      Q=SweepingStrikes, Whirlwind, Cleave | D=BattleShout
+damage  aoe    fight     Q=SweepingStrikes, Whirlwind, Cleave | D=BattleShout
+damage  aoe    execute   Q=SweepingStrikes, Whirlwind, Cleave | D=BattleShout
+damage  aoe    hurt      Q=SweepingStrikes, Whirlwind, Cleave | D=BattleShout
+damage  aoe    aoe       Q=SweepingStrikes, Whirlwind, Cleave | D=BattleShout
+damage  aoe    far       Q=SweepingStrikes, Whirlwind, Cleave | D=BattleShout
+damage  aoe    secret    Q=SweepingStrikes, Whirlwind, Cleave | D=BattleShout
+damage  aoe    press1    Q=SweepingStrikes, Whirlwind, Cleave
+damage  aoe    press2    Q=Whirlwind, Cleave, ThunderClap
+damage  aoe    press3    Q=Cleave, ThunderClap, DemoralizingShout
+damage  aoe    press4    Q=ThunderClap, DemoralizingShout, PiercingHowl
+damage  aoe    press5    Q=DemoralizingShout, PiercingHowl, HeroicStrike
+damage  aoe    press6    Q=Cleave, PiercingHowl, HeroicStrike
+damage  burst  pull      Q=Recklessness, DeathWish, Bloodrage | D=BattleShout
+damage  burst  fight     Q=Recklessness, DeathWish, Bloodrage | D=BattleShout
+damage  burst  execute   Q=Recklessness, DeathWish, Bloodrage | D=BattleShout
+damage  burst  hurt      Q=Recklessness, DeathWish, Bloodrage | D=BattleShout
+damage  burst  aoe       Q=Recklessness, DeathWish, Bloodrage | D=BattleShout
+damage  burst  far       Q=Recklessness, DeathWish, Bloodrage | D=BattleShout
+damage  burst  secret    Q=Recklessness, DeathWish, Bloodrage | D=BattleShout
+damage  burst  press1    Q=Recklessness, DeathWish, Bloodrage
+damage  burst  press2    Q=DeathWish, Bloodrage, VictoryRush
+damage  burst  press3    Q=Bloodrage, VictoryRush, SpearingStrike
+damage  burst  press4    Q=VictoryRush, SpearingStrike, Bloodthirst
+damage  burst  press5    Q=SpearingStrike, Bloodthirst, MortalStrike
+damage  burst  press6    Q=Bloodthirst, MortalStrike, Whirlwind
+tank    auto   pull      Q=DemoralizingShout, VictoryRush, SpearingStrike | D=BattleShout
+tank    auto   fight     Q=DemoralizingShout, VictoryRush, SpearingStrike | D=BattleShout
+tank    auto   execute   Q=DemoralizingShout, VictoryRush, SpearingStrike | D=BattleShout
+tank    auto   hurt      Q=DemoralizingShout, VictoryRush, SpearingStrike | D=BattleShout
+tank    auto   aoe       Q=ThunderClap, DemoralizingShout, Cleave | D=BattleShout
+tank    auto   far       Q=DemoralizingShout, VictoryRush, SpearingStrike | D=BattleShout
+tank    auto   secret    Q=DemoralizingShout, VictoryRush, SpearingStrike | D=BattleShout
+tank    auto   press1    Q=DemoralizingShout, VictoryRush, SpearingStrike
+tank    auto   press2    Q=VictoryRush, SpearingStrike, ShieldSlam
+tank    auto   press3    Q=SpearingStrike, ShieldSlam, SunderArmor
+tank    auto   press4    Q=ShieldSlam, SunderArmor, ThunderClap
+tank    auto   press5    Q=SunderArmor, ThunderClap, HeroicStrike
+tank    auto   press6    Q=SunderArmor, ThunderClap, HeroicStrike
+tank    single pull      Q=DemoralizingShout, VictoryRush, SpearingStrike | D=BattleShout
+tank    single fight     Q=DemoralizingShout, VictoryRush, SpearingStrike | D=BattleShout
+tank    single execute   Q=DemoralizingShout, VictoryRush, SpearingStrike | D=BattleShout
+tank    single hurt      Q=DemoralizingShout, VictoryRush, SpearingStrike | D=BattleShout
+tank    single aoe       Q=DemoralizingShout, VictoryRush, SpearingStrike | D=BattleShout
+tank    single far       Q=DemoralizingShout, VictoryRush, SpearingStrike | D=BattleShout
+tank    single secret    Q=DemoralizingShout, VictoryRush, SpearingStrike | D=BattleShout
+tank    single press1    Q=DemoralizingShout, VictoryRush, SpearingStrike
+tank    single press2    Q=VictoryRush, SpearingStrike, ShieldSlam
+tank    single press3    Q=SpearingStrike, ShieldSlam, SunderArmor
+tank    single press4    Q=ShieldSlam, SunderArmor, ThunderClap
+tank    single press5    Q=SunderArmor, ThunderClap, HeroicStrike
+tank    single press6    Q=SunderArmor, ThunderClap, HeroicStrike
+tank    aoe    pull      Q=ThunderClap, DemoralizingShout, Cleave | D=BattleShout
+tank    aoe    fight     Q=ThunderClap, DemoralizingShout, Cleave | D=BattleShout
+tank    aoe    execute   Q=ThunderClap, DemoralizingShout, Cleave | D=BattleShout
+tank    aoe    hurt      Q=ThunderClap, DemoralizingShout, Cleave | D=BattleShout
+tank    aoe    aoe       Q=ThunderClap, DemoralizingShout, Cleave | D=BattleShout
+tank    aoe    far       Q=ThunderClap, DemoralizingShout, Cleave | D=BattleShout
+tank    aoe    secret    Q=ThunderClap, DemoralizingShout, Cleave | D=BattleShout
+tank    aoe    press1    Q=ThunderClap, DemoralizingShout, Cleave
+tank    aoe    press2    Q=DemoralizingShout, Cleave, SunderArmor
+tank    aoe    press3    Q=Cleave, SunderArmor, HeroicStrike
+tank    aoe    press4    Q=ThunderClap, Cleave, SunderArmor
+tank    aoe    press5    Q=ThunderClap, Cleave, HeroicStrike
+tank    aoe    press6    Q=Cleave, HeroicStrike
+tank    burst  pull      Q=ShieldSlam, SunderArmor, ThunderClap | D=BattleShout
+tank    burst  fight     Q=ShieldSlam, SunderArmor, ThunderClap | D=BattleShout
+tank    burst  execute   Q=ShieldSlam, SunderArmor, ThunderClap | D=BattleShout
+tank    burst  hurt      Q=ShieldSlam, SunderArmor, ThunderClap | D=BattleShout
+tank    burst  aoe       Q=ShieldSlam, SunderArmor, ThunderClap | D=BattleShout
+tank    burst  far       Q=ShieldBlock, ShieldSlam, SunderArmor | D=BattleShout
+tank    burst  secret    Q=ShieldSlam, SunderArmor, ThunderClap | D=BattleShout
+tank    burst  press1    Q=ShieldSlam, SunderArmor, ThunderClap
+tank    burst  press2    Q=SunderArmor, ThunderClap, ShieldBlock
+tank    burst  press3    Q=ThunderClap, ShieldBlock, HeroicStrike
+tank    burst  press4    Q=ShieldBlock, HeroicStrike
+tank    burst  press5    Q=ShieldSlam, HeroicStrike
+tank    burst  press6    Q=HeroicStrike

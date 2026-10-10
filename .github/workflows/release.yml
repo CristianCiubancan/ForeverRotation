@@ -1,0 +1,46 @@
+name: Release
+
+# Push a tag vX.Y.Z whose version matches VERSION.txt and both TOCs.
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Lua 5.1
+        run: sudo apt-get update && sudo apt-get install -y lua5.1
+
+      - name: Tag matches VERSION.txt
+        run: |
+          version="$(head -n1 VERSION.txt | tr -d '\r')"
+          if [ "v$version" != "$GITHUB_REF_NAME" ]; then
+            echo "Tag $GITHUB_REF_NAME does not match VERSION.txt ($version)"
+            exit 1
+          fi
+          echo "VERSION=$version" >> "$GITHUB_ENV"
+
+      - name: Tests
+        run: lua5.1 tests/run.lua
+
+      - name: Build the add-on zip
+        run: |
+          git archive --format=zip --prefix=WoWForeverRot/ -o "WoWForeverRot-$VERSION.zip" HEAD
+          unzip -l "WoWForeverRot-$VERSION.zip"
+
+      - name: Release notes from VERSION.txt
+        run: tail -n +2 VERSION.txt | tr -d '\r' | sed '/./,$!d' > notes.md
+
+      - name: Publish the GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" "WoWForeverRot-$VERSION.zip" \
+            --title "Forever Rotation $VERSION" \
+            --notes-file notes.md

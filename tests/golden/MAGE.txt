@@ -1,0 +1,52 @@
+damage  auto   pull      Q=Pyroblast, FireBlast, IceLance | D=ArcaneIntellect
+damage  auto   fight     Q=Pyroblast, FireBlast, IceLance | D=ArcaneIntellect
+damage  auto   execute   Q=Pyroblast, FireBlast, IceLance | D=ArcaneIntellect
+damage  auto   hurt      Q=Pyroblast, FireBlast, IceLance | D=ArcaneIntellect
+damage  auto   aoe       Q=ArcaneExplosion, BlastWave, Flamestrike | D=ArcaneIntellect
+damage  auto   far       Q=Pyroblast, FireBlast, IceLance | D=ArcaneIntellect
+damage  auto   secret    Q=Pyroblast, FireBlast, IceLance | D=ArcaneIntellect
+damage  auto   press1    Q=Pyroblast, FireBlast, IceLance
+damage  auto   press2    Q=FireBlast, IceLance, Scorch
+damage  auto   press3    Q=IceLance, Scorch, Frostbolt
+damage  auto   press4    Q=Scorch, Frostbolt, ArcaneMissiles
+damage  auto   press5    Q=Frostbolt, ArcaneMissiles, ArcaneBlast
+damage  auto   press6    Q=ArcaneMissiles, ArcaneBlast, FrostfireBolt
+damage  single pull      Q=Pyroblast, FireBlast, IceLance | D=ArcaneIntellect
+damage  single fight     Q=Pyroblast, FireBlast, IceLance | D=ArcaneIntellect
+damage  single execute   Q=Pyroblast, FireBlast, IceLance | D=ArcaneIntellect
+damage  single hurt      Q=Pyroblast, FireBlast, IceLance | D=ArcaneIntellect
+damage  single aoe       Q=Pyroblast, FireBlast, IceLance | D=ArcaneIntellect
+damage  single far       Q=Pyroblast, FireBlast, IceLance | D=ArcaneIntellect
+damage  single secret    Q=Pyroblast, FireBlast, IceLance | D=ArcaneIntellect
+damage  single press1    Q=Pyroblast, FireBlast, IceLance
+damage  single press2    Q=FireBlast, IceLance, Scorch
+damage  single press3    Q=IceLance, Scorch, Frostbolt
+damage  single press4    Q=Scorch, Frostbolt, ArcaneMissiles
+damage  single press5    Q=Frostbolt, ArcaneMissiles, ArcaneBlast
+damage  single press6    Q=ArcaneMissiles, ArcaneBlast, FrostfireBolt
+damage  aoe    pull      Q=ArcaneExplosion, BlastWave, Flamestrike | D=ArcaneIntellect
+damage  aoe    fight     Q=ArcaneExplosion, BlastWave, Flamestrike | D=ArcaneIntellect
+damage  aoe    execute   Q=ArcaneExplosion, BlastWave, Flamestrike | D=ArcaneIntellect
+damage  aoe    hurt      Q=ArcaneExplosion, BlastWave, Flamestrike | D=ArcaneIntellect
+damage  aoe    aoe       Q=ArcaneExplosion, BlastWave, Flamestrike | D=ArcaneIntellect
+damage  aoe    far       Q=Flamestrike, ArcaneExplosion, BlastWave | D=ArcaneIntellect
+damage  aoe    secret    Q=ArcaneExplosion, BlastWave, Flamestrike | D=ArcaneIntellect
+damage  aoe    press1    Q=ArcaneExplosion, BlastWave, Flamestrike
+damage  aoe    press2    Q=BlastWave, Flamestrike, Blizzard
+damage  aoe    press3    Q=Flamestrike, Blizzard, ConeofCold
+damage  aoe    press4    Q=Blizzard, ConeofCold, FrostNova
+damage  aoe    press5    Q=ArcaneExplosion, Blizzard, ConeofCold
+damage  aoe    press6    Q=ArcaneExplosion, Blizzard, FrostNova
+damage  burst  pull      Q=Combustion, PresenceofMind, ArcanePower | D=ArcaneIntellect
+damage  burst  fight     Q=Combustion, PresenceofMind, ArcanePower | D=ArcaneIntellect
+damage  burst  execute   Q=Combustion, PresenceofMind, ArcanePower | D=ArcaneIntellect
+damage  burst  hurt      Q=Combustion, PresenceofMind, ArcanePower | D=ArcaneIntellect
+damage  burst  aoe       Q=Combustion, PresenceofMind, ArcanePower | D=ArcaneIntellect
+damage  burst  far       Q=Combustion, PresenceofMind, ArcanePower | D=ArcaneIntellect
+damage  burst  secret    Q=Combustion, PresenceofMind, ArcanePower | D=ArcaneIntellect
+damage  burst  press1    Q=Combustion, PresenceofMind, ArcanePower
+damage  burst  press2    Q=PresenceofMind, ArcanePower, Pyroblast
+damage  burst  press3    Q=ArcanePower, Pyroblast, FireBlast
+damage  burst  press4    Q=Pyroblast, FireBlast, IceLance
+damage  burst  press5    Q=FireBlast, IceLance, Frostbolt
+damage  burst  press6    Q=IceLance, Frostbolt, FrostfireBolt

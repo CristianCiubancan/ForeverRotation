@@ -1,0 +1,101 @@
+damage  auto   pull      Q=ShadowWordPain, DevouringPlague, MindBlast | D=InnerFire
+damage  auto   fight     Q=ShadowWordPain, DevouringPlague, MindBlast | D=InnerFire
+damage  auto   execute   Q=ShadowWordDeath, MindBlast, MindFlay | D=InnerFire
+damage  auto   hurt      Q=ShadowWordPain, DevouringPlague, Penance | D=InnerFire
+damage  auto   aoe       Q=HolyNova, ShadowWordPain, MindFlay | D=InnerFire
+damage  auto   far       Q=ShadowWordPain, DevouringPlague, MindBlast | D=InnerFire
+damage  auto   secret    Q=ShadowWordPain, DevouringPlague, MindBlast | D=InnerFire
+damage  auto   press1    Q=ShadowWordPain, DevouringPlague, MindBlast
+damage  auto   press2    Q=DevouringPlague, MindBlast, HolyFire
+damage  auto   press3    Q=MindBlast, HolyFire, MindFlay
+damage  auto   press4    Q=HolyFire, MindFlay, Smite
+damage  auto   press5    Q=MindFlay, Smite
+damage  auto   press6    Q=MindFlay, Smite
+damage  single pull      Q=ShadowWordPain, DevouringPlague, MindBlast | D=InnerFire
+damage  single fight     Q=ShadowWordPain, DevouringPlague, MindBlast | D=InnerFire
+damage  single execute   Q=ShadowWordDeath, MindBlast, MindFlay | D=InnerFire
+damage  single hurt      Q=ShadowWordPain, DevouringPlague, Penance | D=InnerFire
+damage  single aoe       Q=ShadowWordPain, DevouringPlague, MindBlast | D=InnerFire
+damage  single far       Q=ShadowWordPain, DevouringPlague, MindBlast | D=InnerFire
+damage  single secret    Q=ShadowWordPain, DevouringPlague, MindBlast | D=InnerFire
+damage  single press1    Q=ShadowWordPain, DevouringPlague, MindBlast
+damage  single press2    Q=DevouringPlague, MindBlast, HolyFire
+damage  single press3    Q=MindBlast, HolyFire, MindFlay
+damage  single press4    Q=HolyFire, MindFlay, Smite
+damage  single press5    Q=MindFlay, Smite
+damage  single press6    Q=MindFlay, Smite
+damage  aoe    pull      Q=HolyNova, ShadowWordPain, MindFlay | D=InnerFire
+damage  aoe    fight     Q=HolyNova, ShadowWordPain, MindFlay | D=InnerFire
+damage  aoe    execute   Q=HolyNova, ShadowWordPain, ShadowWordDeath | D=InnerFire
+damage  aoe    hurt      Q=FlashHeal, HolyNova, ShadowWordPain | D=InnerFire
+damage  aoe    aoe       Q=HolyNova, ShadowWordPain, MindFlay | D=InnerFire
+damage  aoe    far       Q=ShadowWordPain, HolyNova, MindFlay | D=InnerFire
+damage  aoe    secret    Q=HolyNova, ShadowWordPain, MindFlay | D=InnerFire
+damage  aoe    press1    Q=HolyNova, ShadowWordPain, MindFlay
+damage  aoe    press2    Q=ShadowWordPain, MindFlay, MindBlast
+damage  aoe    press3    Q=MindFlay, MindBlast, Smite
+damage  aoe    press4    Q=HolyNova, MindFlay, MindBlast
+damage  aoe    press5    Q=HolyNova, MindFlay, Smite
+damage  aoe    press6    Q=HolyNova, MindFlay, Smite
+damage  burst  pull      Q=InnerFocus, PowerInfusion, MindBlast | D=InnerFire
+damage  burst  fight     Q=InnerFocus, PowerInfusion, MindBlast | D=InnerFire
+damage  burst  execute   Q=InnerFocus, PowerInfusion, ShadowWordDeath | D=InnerFire
+damage  burst  hurt      Q=InnerFocus, PowerInfusion, Penance | D=InnerFire
+damage  burst  aoe       Q=InnerFocus, PowerInfusion, MindBlast | D=InnerFire
+damage  burst  far       Q=InnerFocus, PowerInfusion, MindBlast | D=InnerFire
+damage  burst  secret    Q=InnerFocus, PowerInfusion, MindBlast | D=InnerFire
+damage  burst  press1    Q=InnerFocus, PowerInfusion, MindBlast
+damage  burst  press2    Q=PowerInfusion, MindBlast, MindFlay
+damage  burst  press3    Q=MindBlast, MindFlay, HolyFire
+damage  burst  press4    Q=MindFlay, HolyFire, Smite
+damage  burst  press5    Q=MindFlay, HolyFire, Smite
+damage  burst  press6    Q=MindFlay, Smite
+heal    auto   pull      Q=Smite | D=InnerFire
+heal    auto   fight     Q=Smite | D=InnerFire
+heal    auto   execute   Q=Smite | D=InnerFire
+heal    auto   hurt      Q=PowerWordShield, Penance, PrayerofMending | D=InnerFire
+heal    auto   aoe       Q=HolyNova | D=InnerFire
+heal    auto   far       Q=Smite | D=InnerFire
+heal    auto   secret    Q=Smite | D=InnerFire
+heal    auto   press1    Q=Smite
+heal    auto   press2    Q=Smite
+heal    auto   press3    Q=Smite
+heal    auto   press4    Q=Smite
+heal    auto   press5    Q=Smite
+heal    auto   press6    Q=Smite
+heal    single pull      Q=Smite | D=InnerFire
+heal    single fight     Q=Smite | D=InnerFire
+heal    single execute   Q=Smite | D=InnerFire
+heal    single hurt      Q=PowerWordShield, Penance, PrayerofMending | D=InnerFire
+heal    single aoe       Q=Smite | D=InnerFire
+heal    single far       Q=Smite | D=InnerFire
+heal    single secret    Q=Smite | D=InnerFire
+heal    single press1    Q=Smite
+heal    single press2    Q=Smite
+heal    single press3    Q=Smite
+heal    single press4    Q=Smite
+heal    single press5    Q=Smite
+heal    single press6    Q=Smite
+heal    aoe    pull      Q=HolyNova | D=InnerFire
+heal    aoe    fight     Q=HolyNova | D=InnerFire
+heal    aoe    execute   Q=HolyNova | D=InnerFire
+heal    aoe    hurt      Q=PrayerofHealing, PrayerofMending, BindingHeal | D=InnerFire
+heal    aoe    aoe       Q=HolyNova | D=InnerFire
+heal    aoe    far       Q=HolyNova | D=InnerFire
+heal    aoe    secret    Q=HolyNova | D=InnerFire
+heal    aoe    press1    Q=HolyNova
+heal    aoe    press2    Q=HolyNova
+heal    aoe    press3    Q=HolyNova
+heal    aoe    press4    Q=HolyNova
+heal    aoe    press5    Q=HolyNova
+heal    aoe    press6    Q=HolyNova
+heal    burst  pull      Q=InnerFocus, PowerInfusion | D=InnerFire
+heal    burst  fight     Q=InnerFocus, PowerInfusion | D=InnerFire
+heal    burst  execute   Q=InnerFocus, PowerInfusion | D=InnerFire
+heal    burst  hurt      Q=InnerFocus, PowerInfusion, Penance | D=InnerFire
+heal    burst  aoe       Q=InnerFocus, PowerInfusion | D=InnerFire
+heal    burst  far       Q=InnerFocus, PowerInfusion | D=InnerFire
+heal    burst  secret    Q=InnerFocus, PowerInfusion | D=InnerFire
+heal    burst  press1    Q=InnerFocus, PowerInfusion
+heal    burst  press2    Q=PowerInfusion
+heal    burst  press3    Q=

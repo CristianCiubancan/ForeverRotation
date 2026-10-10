@@ -1,0 +1,52 @@
+damage  auto   pull      Q=Stealth, Garrote, Hemorrhage | D=-
+damage  auto   fight     Q=Hemorrhage, SliceandDice, GhostlyStrike | D=Preparation
+damage  auto   execute   Q=Hemorrhage, SliceandDice, GhostlyStrike | D=Preparation
+damage  auto   hurt      Q=Hemorrhage, SliceandDice, GhostlyStrike | D=Preparation
+damage  auto   aoe       Q=BladeFlurry, Hemorrhage, SliceandDice | D=Preparation
+damage  auto   far       Q=Hemorrhage, SliceandDice, GhostlyStrike | D=Preparation
+damage  auto   secret    Q=Hemorrhage, SliceandDice, GhostlyStrike | D=Preparation
+damage  auto   press1    Q=Hemorrhage, SliceandDice, GhostlyStrike
+damage  auto   press2    Q=SliceandDice, GhostlyStrike, Mutilate
+damage  auto   press3    Q=GhostlyStrike, Mutilate, Backstab
+damage  auto   press4    Q=Mutilate, Backstab, SinisterStrike
+damage  auto   press5    Q=Backstab, SinisterStrike
+damage  auto   press6    Q=Backstab, SinisterStrike, Rupture
+damage  single pull      Q=Stealth, Garrote, Hemorrhage | D=-
+damage  single fight     Q=Hemorrhage, SliceandDice, GhostlyStrike | D=Preparation
+damage  single execute   Q=Hemorrhage, SliceandDice, GhostlyStrike | D=Preparation
+damage  single hurt      Q=Hemorrhage, SliceandDice, GhostlyStrike | D=Preparation
+damage  single aoe       Q=Hemorrhage, SliceandDice, GhostlyStrike | D=Preparation
+damage  single far       Q=Hemorrhage, SliceandDice, GhostlyStrike | D=Preparation
+damage  single secret    Q=Hemorrhage, SliceandDice, GhostlyStrike | D=Preparation
+damage  single press1    Q=Hemorrhage, SliceandDice, GhostlyStrike
+damage  single press2    Q=SliceandDice, GhostlyStrike, Mutilate
+damage  single press3    Q=GhostlyStrike, Mutilate, Backstab
+damage  single press4    Q=Mutilate, Backstab, SinisterStrike
+damage  single press5    Q=Backstab, SinisterStrike
+damage  single press6    Q=Backstab, SinisterStrike, Rupture
+damage  aoe    pull      Q=BladeFlurry, Hemorrhage, SliceandDice | D=-
+damage  aoe    fight     Q=BladeFlurry, Hemorrhage, SliceandDice | D=Preparation
+damage  aoe    execute   Q=BladeFlurry, Hemorrhage, SliceandDice | D=Preparation
+damage  aoe    hurt      Q=BladeFlurry, Hemorrhage, SliceandDice | D=Preparation
+damage  aoe    aoe       Q=BladeFlurry, Hemorrhage, SliceandDice | D=Preparation
+damage  aoe    far       Q=BladeFlurry, Hemorrhage, SliceandDice | D=Preparation
+damage  aoe    secret    Q=BladeFlurry, Hemorrhage, SliceandDice | D=Preparation
+damage  aoe    press1    Q=BladeFlurry, Hemorrhage, SliceandDice
+damage  aoe    press2    Q=Hemorrhage, SliceandDice, Mutilate
+damage  aoe    press3    Q=SliceandDice, Mutilate, SinisterStrike
+damage  aoe    press4    Q=Mutilate, SinisterStrike
+damage  aoe    press5    Q=SinisterStrike
+damage  aoe    press6    Q=SinisterStrike
+damage  burst  pull      Q=AdrenalineRush, ColdBlood, Premeditation | D=-
+damage  burst  fight     Q=Preparation, AdrenalineRush, ColdBlood | D=Preparation
+damage  burst  execute   Q=Preparation, AdrenalineRush, ColdBlood | D=Preparation
+damage  burst  hurt      Q=Preparation, AdrenalineRush, ColdBlood | D=Preparation
+damage  burst  aoe       Q=Preparation, AdrenalineRush, ColdBlood | D=Preparation
+damage  burst  far       Q=Preparation, AdrenalineRush, ColdBlood | D=Preparation
+damage  burst  secret    Q=Preparation, AdrenalineRush, ColdBlood | D=Preparation
+damage  burst  press1    Q=Preparation, AdrenalineRush, ColdBlood
+damage  burst  press2    Q=AdrenalineRush, ColdBlood, Premeditation
+damage  burst  press3    Q=ColdBlood, Premeditation, BladeFlurry
+damage  burst  press4    Q=Premeditation, BladeFlurry, Hemorrhage
+damage  burst  press5    Q=BladeFlurry, Hemorrhage, SinisterStrike
+damage  burst  press6    Q=ColdBlood, Premeditation, Hemorrhage
