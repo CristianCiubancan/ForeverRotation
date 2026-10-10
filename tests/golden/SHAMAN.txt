@@ -9,8 +9,8 @@ caster  auto   press1    Q=StrengthofEarth, ManaSpring, SearingTotem
 caster  auto   press2    Q=ManaSpring, SearingTotem, FlameShock
 caster  auto   press3    Q=SearingTotem, FlameShock, LavaBurst
 caster  auto   press4    Q=FlameShock, LavaBurst, LightningBolt
-caster  auto   press5    Q=StrengthofEarth, ManaSpring, SearingTotem
-caster  auto   press6    Q=StrengthofEarth, ManaSpring, SearingTotem
+caster  auto   press5    Q=LavaBurst, LightningBolt, StrengthofEarth
+caster  auto   press6    Q=LightningBolt, StrengthofEarth, FlameShock
 caster  single pull      Q=StrengthofEarth, ManaSpring, SearingTotem | D=LightningShield
 caster  single fight     Q=StrengthofEarth, ManaSpring, SearingTotem | D=LightningShield
 caster  single execute   Q=StrengthofEarth, ManaSpring, SearingTotem | D=LightningShield
@@ -22,8 +22,8 @@ caster  single press1    Q=StrengthofEarth, ManaSpring, SearingTotem
 caster  single press2    Q=ManaSpring, SearingTotem, FlameShock
 caster  single press3    Q=SearingTotem, FlameShock, LavaBurst
 caster  single press4    Q=FlameShock, LavaBurst, LightningBolt
-caster  single press5    Q=StrengthofEarth, ManaSpring, SearingTotem
-caster  single press6    Q=StrengthofEarth, ManaSpring, SearingTotem
+caster  single press5    Q=LavaBurst, LightningBolt, StrengthofEarth
+caster  single press6    Q=LightningBolt, StrengthofEarth, FlameShock
 caster  aoe    pull      Q=ChainLightning, FireNova, SearingTotem | D=LightningShield
 caster  aoe    fight     Q=ChainLightning, FireNova, SearingTotem | D=LightningShield
 caster  aoe    execute   Q=ChainLightning, FireNova, SearingTotem | D=LightningShield
@@ -33,10 +33,10 @@ caster  aoe    far       Q=ChainLightning, FireNova, SearingTotem | D=LightningS
 caster  aoe    secret    Q=ChainLightning, FireNova, SearingTotem | D=LightningShield
 caster  aoe    press1    Q=ChainLightning, FireNova, SearingTotem
 caster  aoe    press2    Q=FireNova, SearingTotem, FlameShock
-caster  aoe    press3    Q=SearingTotem, FlameShock, LightningBolt
-caster  aoe    press4    Q=SearingTotem, FlameShock, LightningBolt
-caster  aoe    press5    Q=ChainLightning, SearingTotem, LightningBolt
-caster  aoe    press6    Q=SearingTotem, LightningBolt
+caster  aoe    press3    Q=SearingTotem, FlameShock, ChainLightning
+caster  aoe    press4    Q=FlameShock, ChainLightning, LightningBolt
+caster  aoe    press5    Q=ChainLightning, LightningBolt, SearingTotem
+caster  aoe    press6    Q=LightningBolt, SearingTotem, FlameShock
 caster  burst  pull      Q=ElementalMastery, ChainLightning, FlameShock | D=LightningShield
 caster  burst  fight     Q=ElementalMastery, ChainLightning, FlameShock | D=LightningShield
 caster  burst  execute   Q=ElementalMastery, ChainLightning, FlameShock | D=LightningShield
@@ -47,9 +47,9 @@ caster  burst  secret    Q=ElementalMastery, ChainLightning, FlameShock | D=Ligh
 caster  burst  press1    Q=ElementalMastery, ChainLightning, FlameShock
 caster  burst  press2    Q=ChainLightning, FlameShock, LavaBurst
 caster  burst  press3    Q=FlameShock, LavaBurst, LightningBolt
-caster  burst  press4    Q=LavaBurst, LightningBolt
-caster  burst  press5    Q=LightningBolt
-caster  burst  press6    Q=ChainLightning, LightningBolt
+caster  burst  press4    Q=LavaBurst, LightningBolt, ChainLightning
+caster  burst  press5    Q=LightningBolt, ChainLightning, FlameShock
+caster  burst  press6    Q=ChainLightning, FlameShock, LightningBolt
 melee   auto   pull      Q=StrengthofEarth, SearingTotem, Stormstrike | D=LightningShield
 melee   auto   fight     Q=StrengthofEarth, SearingTotem, Stormstrike | D=LightningShield
 melee   auto   execute   Q=StrengthofEarth, SearingTotem, Stormstrike | D=LightningShield
@@ -61,8 +61,8 @@ melee   auto   press1    Q=StrengthofEarth, SearingTotem, Stormstrike
 melee   auto   press2    Q=SearingTotem, Stormstrike, FlameShock
 melee   auto   press3    Q=Stormstrike, FlameShock, LavaBurst
 melee   auto   press4    Q=FlameShock, LavaBurst, LightningBolt
-melee   auto   press5    Q=StrengthofEarth, SearingTotem, LavaBurst
-melee   auto   press6    Q=StrengthofEarth, SearingTotem, LightningBolt
+melee   auto   press5    Q=LavaBurst, LightningBolt, StrengthofEarth
+melee   auto   press6    Q=LightningBolt, StrengthofEarth, FlameShock
 melee   single pull      Q=StrengthofEarth, SearingTotem, Stormstrike | D=LightningShield
 melee   single fight     Q=StrengthofEarth, SearingTotem, Stormstrike | D=LightningShield
 melee   single execute   Q=StrengthofEarth, SearingTotem, Stormstrike | D=LightningShield
@@ -74,8 +74,8 @@ melee   single press1    Q=StrengthofEarth, SearingTotem, Stormstrike
 melee   single press2    Q=SearingTotem, Stormstrike, FlameShock
 melee   single press3    Q=Stormstrike, FlameShock, LavaBurst
 melee   single press4    Q=FlameShock, LavaBurst, LightningBolt
-melee   single press5    Q=StrengthofEarth, SearingTotem, LavaBurst
-melee   single press6    Q=StrengthofEarth, SearingTotem, LightningBolt
+melee   single press5    Q=LavaBurst, LightningBolt, StrengthofEarth
+melee   single press6    Q=LightningBolt, StrengthofEarth, FlameShock
 melee   aoe    pull      Q=FireNova, SearingTotem, ChainLightning | D=LightningShield
 melee   aoe    fight     Q=FireNova, SearingTotem, ChainLightning | D=LightningShield
 melee   aoe    execute   Q=FireNova, SearingTotem, ChainLightning | D=LightningShield
@@ -87,8 +87,8 @@ melee   aoe    press1    Q=FireNova, SearingTotem, ChainLightning
 melee   aoe    press2    Q=SearingTotem, ChainLightning, Stormstrike
 melee   aoe    press3    Q=ChainLightning, Stormstrike, FlameShock
 melee   aoe    press4    Q=Stormstrike, FlameShock, LightningBolt
-melee   aoe    press5    Q=SearingTotem, FlameShock, LightningBolt
-melee   aoe    press6    Q=SearingTotem, LightningBolt
+melee   aoe    press5    Q=FlameShock, LightningBolt, ChainLightning
+melee   aoe    press6    Q=LightningBolt, ChainLightning, FireNova
 melee   burst  pull      Q=ElementalMastery, Stormstrike, EarthShock | D=LightningShield
 melee   burst  fight     Q=ElementalMastery, Stormstrike, EarthShock | D=LightningShield
 melee   burst  execute   Q=ElementalMastery, Stormstrike, EarthShock | D=LightningShield
@@ -98,10 +98,10 @@ melee   burst  far       Q=ElementalMastery, Stormstrike, EarthShock | D=Lightni
 melee   burst  secret    Q=ElementalMastery, Stormstrike, EarthShock | D=LightningShield
 melee   burst  press1    Q=ElementalMastery, Stormstrike, EarthShock
 melee   burst  press2    Q=Stormstrike, EarthShock, LightningBolt
-melee   burst  press3    Q=EarthShock, LightningBolt
-melee   burst  press4    Q=LightningBolt
-melee   burst  press5    Q=LightningBolt
-melee   burst  press6    Q=LightningBolt
+melee   burst  press3    Q=EarthShock, LightningBolt, FlameShock
+melee   burst  press4    Q=LightningBolt, EarthShock, FlameShock
+melee   burst  press5    Q=LightningBolt, EarthShock, FlameShock
+melee   burst  press6    Q=LightningBolt, EarthShock, FlameShock
 heal    auto   pull      Q=ManaSpring, FlameShock, LightningBolt | D=WaterShield
 heal    auto   fight     Q=ManaSpring, FlameShock, LightningBolt | D=WaterShield
 heal    auto   execute   Q=ManaSpring, FlameShock, LightningBolt | D=WaterShield
@@ -110,11 +110,11 @@ heal    auto   aoe       Q= | D=WaterShield
 heal    auto   far       Q=ManaSpring, FlameShock, LightningBolt | D=WaterShield
 heal    auto   secret    Q=ManaSpring, FlameShock, LightningBolt | D=WaterShield
 heal    auto   press1    Q=ManaSpring, FlameShock, LightningBolt
-heal    auto   press2    Q=ManaSpring, FlameShock, LightningBolt
-heal    auto   press3    Q=ManaSpring, LightningBolt
-heal    auto   press4    Q=ManaSpring, LightningBolt
-heal    auto   press5    Q=ManaSpring, LightningBolt
-heal    auto   press6    Q=ManaSpring, FlameShock, LightningBolt
+heal    auto   press2    Q=FlameShock, LightningBolt, ManaSpring
+heal    auto   press3    Q=LightningBolt, ManaSpring, FlameShock
+heal    auto   press4    Q=ManaSpring, LightningBolt, FlameShock
+heal    auto   press5    Q=LightningBolt, FlameShock, ManaSpring
+heal    auto   press6    Q=FlameShock, ManaSpring, LightningBolt
 heal    single pull      Q=ManaSpring, FlameShock, LightningBolt | D=WaterShield
 heal    single fight     Q=ManaSpring, FlameShock, LightningBolt | D=WaterShield
 heal    single execute   Q=ManaSpring, FlameShock, LightningBolt | D=WaterShield
@@ -123,11 +123,11 @@ heal    single aoe       Q=ManaSpring, FlameShock, LightningBolt | D=WaterShield
 heal    single far       Q=ManaSpring, FlameShock, LightningBolt | D=WaterShield
 heal    single secret    Q=ManaSpring, FlameShock, LightningBolt | D=WaterShield
 heal    single press1    Q=ManaSpring, FlameShock, LightningBolt
-heal    single press2    Q=ManaSpring, FlameShock, LightningBolt
-heal    single press3    Q=ManaSpring, LightningBolt
-heal    single press4    Q=ManaSpring, LightningBolt
-heal    single press5    Q=ManaSpring, LightningBolt
-heal    single press6    Q=ManaSpring, FlameShock, LightningBolt
+heal    single press2    Q=FlameShock, LightningBolt, ManaSpring
+heal    single press3    Q=LightningBolt, ManaSpring, FlameShock
+heal    single press4    Q=ManaSpring, LightningBolt, FlameShock
+heal    single press5    Q=LightningBolt, FlameShock, ManaSpring
+heal    single press6    Q=FlameShock, ManaSpring, LightningBolt
 heal    aoe    pull      Q= | D=WaterShield
 heal    aoe    fight     Q= | D=WaterShield
 heal    aoe    execute   Q= | D=WaterShield

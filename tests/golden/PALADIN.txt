@@ -9,8 +9,8 @@ damage  auto   press1    Q=SealCrusader, Judgement, HolyStrike
 damage  auto   press2    Q=Judgement, HolyStrike, SwiftJudgement
 damage  auto   press3    Q=HolyStrike, SwiftJudgement, CrusaderStrike
 damage  auto   press4    Q=SwiftJudgement, CrusaderStrike, HolyShock
-damage  auto   press5    Q=CrusaderStrike, HolyShock
-damage  auto   press6    Q=HolyShock
+damage  auto   press5    Q=CrusaderStrike, HolyShock, Judgement
+damage  auto   press6    Q=HolyShock, Judgement, CrusaderStrike
 damage  single pull      Q=SealCrusader, Judgement, HolyStrike | D=DevotionAura
 damage  single fight     Q=SealCrusader, Judgement, HolyStrike | D=DevotionAura
 damage  single execute   Q=SealCrusader, Judgement, HammerofWrath | D=DevotionAura
@@ -22,8 +22,8 @@ damage  single press1    Q=SealCrusader, Judgement, HolyStrike
 damage  single press2    Q=Judgement, HolyStrike, SwiftJudgement
 damage  single press3    Q=HolyStrike, SwiftJudgement, CrusaderStrike
 damage  single press4    Q=SwiftJudgement, CrusaderStrike, HolyShock
-damage  single press5    Q=CrusaderStrike, HolyShock
-damage  single press6    Q=HolyShock
+damage  single press5    Q=CrusaderStrike, HolyShock, Judgement
+damage  single press6    Q=HolyShock, Judgement, CrusaderStrike
 damage  aoe    pull      Q=SealCommand, Consecration, HolyWrath | D=DevotionAura
 damage  aoe    fight     Q=SealCommand, Consecration, HolyWrath | D=DevotionAura
 damage  aoe    execute   Q=SealCommand, Consecration, HolyWrath | D=DevotionAura
@@ -36,7 +36,7 @@ damage  aoe    press2    Q=Consecration, HolyWrath, HolyStrike
 damage  aoe    press3    Q=HolyWrath, HolyStrike, CrusaderStrike
 damage  aoe    press4    Q=HolyStrike, CrusaderStrike, Judgement
 damage  aoe    press5    Q=CrusaderStrike, Judgement, SwiftJudgement
-damage  aoe    press6    Q=Judgement, SwiftJudgement, Exorcism
+damage  aoe    press6    Q=Judgement, SwiftJudgement, Consecration
 damage  burst  pull      Q=SealCommand, HolyStrike, Judgement | D=DevotionAura
 damage  burst  fight     Q=SealCommand, HolyStrike, Judgement | D=DevotionAura
 damage  burst  execute   Q=SealCommand, HolyStrike, Judgement | D=DevotionAura
@@ -49,7 +49,7 @@ damage  burst  press2    Q=HolyStrike, Judgement, SwiftJudgement
 damage  burst  press3    Q=Judgement, SwiftJudgement, CrusaderStrike
 damage  burst  press4    Q=SwiftJudgement, CrusaderStrike, HolyShock
 damage  burst  press5    Q=CrusaderStrike, HolyShock, Consecration
-damage  burst  press6    Q=HolyShock, Consecration
+damage  burst  press6    Q=HolyShock, Consecration, Judgement
 tank    auto   pull      Q=SealFury, HolyStrike, CrusaderStrike | D=RighteousFury
 tank    auto   fight     Q=SealFury, HolyShield, HolyStrike | D=RighteousFury
 tank    auto   execute   Q=SealFury, HolyShield, HolyStrike | D=RighteousFury
@@ -62,7 +62,7 @@ tank    auto   press2    Q=HolyShield, HolyStrike, CrusaderStrike
 tank    auto   press3    Q=HolyStrike, CrusaderStrike, Judgement
 tank    auto   press4    Q=CrusaderStrike, Judgement, SwiftJudgement
 tank    auto   press5    Q=Judgement, SwiftJudgement, HammerofJustice
-tank    auto   press6    Q=SwiftJudgement, HammerofJustice, HolyShock
+tank    auto   press6    Q=SwiftJudgement, HammerofJustice, CrusaderStrike
 tank    single pull      Q=SealFury, HolyStrike, CrusaderStrike | D=RighteousFury
 tank    single fight     Q=SealFury, HolyShield, HolyStrike | D=RighteousFury
 tank    single execute   Q=SealFury, HolyShield, HolyStrike | D=RighteousFury
@@ -75,7 +75,7 @@ tank    single press2    Q=HolyShield, HolyStrike, CrusaderStrike
 tank    single press3    Q=HolyStrike, CrusaderStrike, Judgement
 tank    single press4    Q=CrusaderStrike, Judgement, SwiftJudgement
 tank    single press5    Q=Judgement, SwiftJudgement, HammerofJustice
-tank    single press6    Q=SwiftJudgement, HammerofJustice, HolyShock
+tank    single press6    Q=SwiftJudgement, HammerofJustice, CrusaderStrike
 tank    aoe    pull      Q=SealFury, Consecration, HolyWrath | D=RighteousFury
 tank    aoe    fight     Q=SealFury, Consecration, HolyWrath | D=RighteousFury
 tank    aoe    execute   Q=SealFury, Consecration, HolyWrath | D=RighteousFury
@@ -87,8 +87,8 @@ tank    aoe    press1    Q=SealFury, Consecration, HolyWrath
 tank    aoe    press2    Q=Consecration, HolyWrath, HolyShield
 tank    aoe    press3    Q=HolyWrath, HolyShield, Judgement
 tank    aoe    press4    Q=HolyShield, Judgement, SwiftJudgement
-tank    aoe    press5    Q=HolyShield, Judgement, SwiftJudgement
-tank    aoe    press6    Q=HolyShield, SwiftJudgement
+tank    aoe    press5    Q=Judgement, SwiftJudgement, HolyShield
+tank    aoe    press6    Q=SwiftJudgement, HolyShield, Consecration
 tank    burst  pull      Q=Consecration, Judgement, SwiftJudgement | D=RighteousFury
 tank    burst  fight     Q=HolyShield, Consecration, Judgement | D=RighteousFury
 tank    burst  execute   Q=HolyShield, Consecration, Judgement | D=RighteousFury
@@ -99,9 +99,9 @@ tank    burst  secret    Q=HolyShield, Consecration, Judgement | D=RighteousFury
 tank    burst  press1    Q=HolyShield, Consecration, Judgement
 tank    burst  press2    Q=Consecration, Judgement, SwiftJudgement
 tank    burst  press3    Q=Judgement, SwiftJudgement, HammerofJustice
-tank    burst  press4    Q=HolyShield, SwiftJudgement, HammerofJustice
-tank    burst  press5    Q=HolyShield, HammerofJustice
-tank    burst  press6    Q=HolyShield, HammerofJustice
+tank    burst  press4    Q=SwiftJudgement, HammerofJustice, HolyShield
+tank    burst  press5    Q=HammerofJustice, HolyShield, Consecration
+tank    burst  press6    Q=HolyShield, Consecration, Judgement
 heal    auto   pull      Q=SealLight, Judgement, SwiftJudgement | D=DevotionAura
 heal    auto   fight     Q=SealLight, Judgement, SwiftJudgement | D=DevotionAura
 heal    auto   execute   Q=SealLight, Judgement, SwiftJudgement | D=DevotionAura
@@ -111,7 +111,7 @@ heal    auto   far       Q=SealLight, Judgement, SwiftJudgement | D=DevotionAura
 heal    auto   secret    Q=SealLight, Judgement, SwiftJudgement | D=DevotionAura
 heal    auto   press1    Q=SealLight, Judgement, SwiftJudgement
 heal    auto   press2    Q=Judgement, SwiftJudgement
-heal    auto   press3    Q=SwiftJudgement
+heal    auto   press3    Q=SwiftJudgement, Judgement
 heal    auto   press4    Q=
 heal    single pull      Q=SealLight, Judgement, SwiftJudgement | D=DevotionAura
 heal    single fight     Q=SealLight, Judgement, SwiftJudgement | D=DevotionAura
@@ -122,7 +122,7 @@ heal    single far       Q=SealLight, Judgement, SwiftJudgement | D=DevotionAura
 heal    single secret    Q=SealLight, Judgement, SwiftJudgement | D=DevotionAura
 heal    single press1    Q=SealLight, Judgement, SwiftJudgement
 heal    single press2    Q=Judgement, SwiftJudgement
-heal    single press3    Q=SwiftJudgement
+heal    single press3    Q=SwiftJudgement, Judgement
 heal    single press4    Q=
 heal    aoe    pull      Q=HolyWrath, Consecration | D=DevotionAura
 heal    aoe    fight     Q=HolyWrath, Consecration | D=DevotionAura

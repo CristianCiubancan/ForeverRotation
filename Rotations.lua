@@ -239,10 +239,32 @@ function ns.BuildQueue()
 		end
 		return true
 	end
+	-- A step used in this pass rejoins normal priority as soon as the add-on
+	-- can see it is wanted again: its own cooldown ended, or a readable aura
+	-- says cast it (missing, still stacking, due for refresh). Steps with
+	-- nothing readable (fillers, plain strikes, secret auras) wait for the
+	-- pass to wrap, as before.
+	local function readyAgain(step, shift)
+		local id = (API.Resolve and API.Resolve(step.id)) or step.id
+		if not id then
+			return false
+		end
+		local cdSec = API.SpellCooldownSec and API.SpellCooldownSec(id) or 0
+		if cdSec > 1.6 and API.Cooldown then
+			local gate = math.max(shift or 0.2, 0.2) + (API.PredictAhead and API.PredictAhead() or 0)
+			if API.Cooldown(id) <= gate then
+				return true
+			end
+		end
+		return API.AuraWantsCast and API.AuraWantsCast(step.id, step.opt) or false
+	end
+	local function open(step, shift)
+		return not isRotSpent(step) or readyAgain(step, shift)
+	end
 	local function laterInRange(from, shift)
 		for j = from + 1, #apl do
 			local step = apl[j]
-			if not isRotSpent(step) and pressable(step, shift, "in", false) then
+			if open(step, shift) and pressable(step, shift, "in", false) then
 				return true
 			end
 		end
@@ -251,7 +273,7 @@ function ns.BuildQueue()
 	local function laterAction(from, shift)
 		for j = from + 1, #apl do
 			local step = apl[j]
-			if not isRotSpent(step) and API.IsRotationAction and API.IsRotationAction(step.id, step.opt, step.racial) then
+			if open(step, shift) and API.IsRotationAction and API.IsRotationAction(step.id, step.opt, step.racial) then
 				-- Confirmed in-range, or unknown (notOut): a ready shock/DoT/CD
 				-- must still beat a filler listed above it.
 				if pressable(step, shift, "in", false) or pressable(step, shift, "notOut", false) then
@@ -269,13 +291,17 @@ function ns.BuildQueue()
 			if API.PredictConsume then
 				API.PredictConsume(step.id, step.opt)
 			end
+			-- The next slot is judged when this press is over (cast or GCD).
+			if API.PredictAdvance and API.SlotSeconds then
+				API.PredictAdvance(API.SlotSeconds(step.id, step.opt))
+			end
 			return true
 		end
 		return false
 	end
 	local function pickOne(shift, mustRange, allowDup, skipSpent)
 		for i, step in ipairs(apl) do
-			if (not skipSpent or not isRotSpent(step)) and pressable(step, shift, mustRange, allowDup) then
+			if (not skipSpent or open(step, shift)) and pressable(step, shift, mustRange, allowDup) then
 				local id = (API.Resolve and API.Resolve(step.id)) or step.id
 				local opt = step.opt or {}
 				-- Fillers (Lightning Bolt, Fireball, Heroic Strike, …) yield to a
@@ -292,16 +318,58 @@ function ns.BuildQueue()
 		return false
 	end
 	-- Prefer unspent steps (continue after a manual cast). If the pass is
-	-- exhausted, wipe and restart from the top of the list.
+	-- exhausted, slot 1 wipes it and restarts from the top of the list.
+	-- Later slots only look past the pass: wiping it while filling them
+	-- changed slot 1 on the next tick with nothing pressed (HUD flicker).
 	local function pickNext(shift, mustRange, allowDup)
 		if pickOne(shift, mustRange, allowDup, true) then
 			return true
 		end
-		if next(rotSpent) then
+		if #q == 0 and next(rotSpent) then
 			wipe(rotSpent)
 			return pickOne(shift, mustRange, allowDup, true)
 		end
 		return pickOne(shift, mustRange, allowDup, false)
+	end
+	-- Slots 2-3 only: nothing is pressable when this slot comes up (energy
+	-- still filling, a cooldown or DoT window about to open). Re-check at the
+	-- few moments a list spell becomes possible (at most 3, within 5 s) and
+	-- show what comes first, instead of leaving the slot empty.
+	local MAX_WAIT, MAX_TRIES = 5, 3
+	local function pickAfterWait(shift)
+		if #q == 0 or not API.WaitHint or not API.PredictSetAhead then
+			return false
+		end
+		local waits = {}
+		for _, step in ipairs(apl) do
+			if consider(step) then
+				local id = (API.Resolve and API.Resolve(step.id)) or step.id
+				if id and not inQueue(id) then
+					local wait = API.WaitHint(step.id, step.opt)
+					if wait and wait <= MAX_WAIT then
+						waits[#waits + 1] = wait
+					end
+				end
+			end
+		end
+		table.sort(waits)
+		local base = API.PredictAhead()
+		local tried, last = 0, nil
+		for _, wait in ipairs(waits) do
+			if not last or wait - last > 0.05 then
+				last = wait
+				tried = tried + 1
+				API.PredictSetAhead(base + wait)
+				if pickNext(shift, "any", false) then
+					return true
+				end
+				if tried >= MAX_TRIES then
+					break
+				end
+			end
+		end
+		API.PredictSetAhead(base)
+		return false
 	end
 	local function fillSlots()
 		local shift = 0.2
@@ -329,7 +397,7 @@ function ns.BuildQueue()
 		end
 		-- Never allowDup: the next slots must be later spells in the list.
 		while #q < 3 do
-			if not pickNext(shift, "any", false) then
+			if not pickNext(shift, "any", false) and not pickAfterWait(shift) then
 				break
 			end
 		end

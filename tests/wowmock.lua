@@ -860,6 +860,15 @@ function M.new(opts)
 	function T.cost(spell, kind, amount)
 		W.costs[T.id(spell)] = { type = kind, cost = amount }
 	end
+	function T.castTime(spell, seconds)
+		W.spells[T.id(spell)].castMs = math.floor(seconds * 1000)
+	end
+	-- Put a spell on cooldown with `remain` seconds left (as the game would after a cast).
+	function T.cooldown(spell, remain)
+		local id = T.id(spell)
+		local full = W.spells[id].cooldown
+		W.cd[id] = { start = W.now - (full - remain), duration = full }
+	end
 	-- Put spells on ActionButton1.. in order. Entries: a spell key, or
 	-- { item = true } / { hidden = true }. Rescans the bars like the client.
 	function T.bars(entries)
@@ -932,7 +941,13 @@ function M.new(opts)
 		if opt.nodebuff and W.target then
 			local debuff = opt.nodebuff == true and id or opt.nodebuff
 			local holdFor = ns.SPELL_HOLD and ns.SPELL_HOLD[id]
-			T.aura("target", debuff, "HARMFUL", (holdFor and holdFor > 0) and holdFor or 15)
+			local stacks = 1
+			for _, a in ipairs(W.auras.target or {}) do
+				if a.spellId == debuff and (a.expirationTime == nil or a.expirationTime > W.now) then
+					stacks = math.min((a.applications or 1) + 1, tonumber(opt.stacks) or 1)
+				end
+			end
+			T.aura("target", debuff, "HARMFUL", (holdFor and holdFor > 0) and holdFor or 15, stacks)
 		end
 		if opt.nobuff then
 			T.aura("player", id, "HELPFUL", ns.IsMaintenanceBuff(id) and 1800 or 30)

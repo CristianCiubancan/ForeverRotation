@@ -9,8 +9,8 @@ damage  auto   press1    Q=ShadowWordPain, DevouringPlague, MindBlast
 damage  auto   press2    Q=DevouringPlague, MindBlast, HolyFire
 damage  auto   press3    Q=MindBlast, HolyFire, MindFlay
 damage  auto   press4    Q=HolyFire, MindFlay, Smite
-damage  auto   press5    Q=MindFlay, Smite
-damage  auto   press6    Q=MindFlay, Smite
+damage  auto   press5    Q=MindFlay, Smite, HolyFire
+damage  auto   press6    Q=Smite, HolyFire, MindFlay
 damage  single pull      Q=ShadowWordPain, DevouringPlague, MindBlast | D=InnerFire
 damage  single fight     Q=ShadowWordPain, DevouringPlague, MindBlast | D=InnerFire
 damage  single execute   Q=ShadowWordDeath, MindBlast, MindFlay | D=InnerFire
@@ -22,8 +22,8 @@ damage  single press1    Q=ShadowWordPain, DevouringPlague, MindBlast
 damage  single press2    Q=DevouringPlague, MindBlast, HolyFire
 damage  single press3    Q=MindBlast, HolyFire, MindFlay
 damage  single press4    Q=HolyFire, MindFlay, Smite
-damage  single press5    Q=MindFlay, Smite
-damage  single press6    Q=MindFlay, Smite
+damage  single press5    Q=MindFlay, Smite, HolyFire
+damage  single press6    Q=Smite, HolyFire, MindFlay
 damage  aoe    pull      Q=HolyNova, ShadowWordPain, MindFlay | D=InnerFire
 damage  aoe    fight     Q=HolyNova, ShadowWordPain, MindFlay | D=InnerFire
 damage  aoe    execute   Q=HolyNova, ShadowWordPain, ShadowWordDeath | D=InnerFire
@@ -34,8 +34,8 @@ damage  aoe    secret    Q=HolyNova, ShadowWordPain, MindFlay | D=InnerFire
 damage  aoe    press1    Q=HolyNova, ShadowWordPain, MindFlay
 damage  aoe    press2    Q=ShadowWordPain, MindFlay, MindBlast
 damage  aoe    press3    Q=MindFlay, MindBlast, Smite
-damage  aoe    press4    Q=HolyNova, MindFlay, MindBlast
-damage  aoe    press5    Q=HolyNova, MindFlay, Smite
+damage  aoe    press4    Q=MindBlast, Smite, HolyNova
+damage  aoe    press5    Q=Smite, HolyNova, MindFlay
 damage  aoe    press6    Q=HolyNova, MindFlay, Smite
 damage  burst  pull      Q=InnerFocus, PowerInfusion, MindBlast | D=InnerFire
 damage  burst  fight     Q=InnerFocus, PowerInfusion, MindBlast | D=InnerFire
@@ -48,8 +48,8 @@ damage  burst  press1    Q=InnerFocus, PowerInfusion, MindBlast
 damage  burst  press2    Q=PowerInfusion, MindBlast, MindFlay
 damage  burst  press3    Q=MindBlast, MindFlay, HolyFire
 damage  burst  press4    Q=MindFlay, HolyFire, Smite
-damage  burst  press5    Q=MindFlay, HolyFire, Smite
-damage  burst  press6    Q=MindFlay, Smite
+damage  burst  press5    Q=HolyFire, Smite, MindFlay
+damage  burst  press6    Q=Smite, MindFlay, HolyFire
 heal    auto   pull      Q=Smite | D=InnerFire
 heal    auto   fight     Q=Smite | D=InnerFire
 heal    auto   execute   Q=Smite | D=InnerFire

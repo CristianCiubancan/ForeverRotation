@@ -17,6 +17,28 @@ local function fight(class, known)
 end
 
 return function(H)
+	H.test("every class: the queue is stable (two ticks with no change show the same)", function()
+		for _, class in ipairs(CLASSES) do
+			local T = fight(class)
+			T.ns.db.roleAuto = false
+			for _, spec in ipairs(T.ns.SpecList(class)) do
+				T.ns.db.role = spec
+				T.ns.ClearRotationSpent()
+				for n = 1, 8 do
+					local a = T.queue()
+					local b = T.queue()
+					H.eq(b, a, class .. " " .. spec .. " press " .. n .. ": second tick")
+					local ids = T.queueIds()
+					if #ids == 0 then
+						break
+					end
+					T.press(ids[1])
+					T.advance(1.5)
+				end
+			end
+		end
+	end)
+
 	H.test("unknown spells are never suggested", function()
 		local T = fight("MAGE")
 		T.forget({ "Pyroblast", "FireBlast" })
@@ -59,11 +81,11 @@ return function(H)
 		H.first(T.queue(), "FireBlast")
 	end)
 
-	H.test("readable DoT: leaves the queue, comes back to refresh at 6 s left", function()
+	H.test("readable DoT: leaves slot 1, comes back to refresh at 6 s left", function()
 		local T = fight("WARRIOR", { "Rend", "HeroicStrike" })
 		H.first(T.queue(), "Rend")
 		T.press("Rend")
-		H.lacks(T.queue(), "Rend")
+		H.first(T.queue(), "HeroicStrike")
 		local left = T.ns.SPELL_HOLD[T.id("Rend")]
 		T.advance(left - 5.9)
 		H.first(T.queue(), "Rend")

@@ -1,16 +1,39 @@
-1.5.72
+1.6.0
 
-# 1.5.72
+# 1.6.0
 
-## Open source — development by Vohnka has stopped
+## New maintainer, same add-on
 
-Active development of Forever Rotation by the original author has ended. The GitHub repository is now **public** under the **MIT** license so anyone can fork it, fix bugs, and keep improving the addon for Forever.
+Forever Rotation now continues as a maintained successor of Vohnka's original, whose development stopped at 1.5.72. Releases are on GitHub: https://github.com/CristianCiubancan/ForeverRotation/releases. Your settings, profiles, and custom lists carry over unchanged: delete the old `WoWForeverRot` folder and unzip the new one in its place. The GitHub link in Info → Links now points to the new home.
 
-### What changed for players
-- Info → Links now includes **GitHub** next to Website, Discord, and CurseForge.
-- About / support text states that maintenance by Vohnka has stopped and that forks are welcome.
-- CurseForge description and project source point to https://github.com/ssablon/ForeverRotation.
+## Smarter next spells (HUD slots 2 and 3)
+
+Slots 2 and 3 used to show what was usable **right now**. A spell coming off cooldown a second later never appeared there, and a filler took its place. They now show what you will be able to press **after the slot before them**:
+
+- Cooldowns, re-cast delays, and buff / debuff time left are checked at the moment that slot comes up: after the previous cast, or after the global cooldown (1 s for rogues and cat form, 1.5 s otherwise).
+- Mana and energy spent by the earlier slots are counted, and energy refills on the 2-second tick. A spender you cannot pay for yet moves behind one you can, or shows up once the energy is back. Rage is not predicted, because white hits and incoming damage make it unpredictable.
+- If nothing is ready when a slot comes up, it shows the first list spell that will be ready within 5 seconds, instead of staying empty.
+
+Slot 1, the spell to press now, works exactly as before.
+
+## No more flicker right after a cast
+
+Right after you cast, slot 1 could switch between two spells from one update to the next with nothing pressed. This affected every class. Fixed.
+
+## A spell you just used comes back as soon as it is ready
+
+After you cast a list spell, the HUD moves on down your list (the rotation pass). A used spell now rejoins the normal order as soon as the add-on can see it is wanted again:
+
+- its cooldown has ended (Fire Blast, Judgement, shocks, Bloodthirst…), or
+- its buff or debuff is missing, still stacking (Sunder Armor, Scorch, Lacerate), or due for a refresh. This also catches a DoT that was resisted.
+
+Spells with nothing the add-on can read (fillers, plain strikes, auras that Forever hides) follow the pass as before.
+
+## "Only suggest spells that are on your action bars" filters again
+
+This option (Extra tab, on by default) filtered nothing in recent versions. It now hides list spells that are on none of your bars. It only does so when the client answered for every bar slot. If Forever hides a slot, the filter steps aside instead of making the rotation flicker. Items and macros on your bars are fine. If you cast spells from the spellbook or from macros the add-on cannot read, turn the option off.
 
 ### What did not change
-- Rotation logic, holds, profiles, and HUD behaviour from **1.5.71** are unchanged in this build aside from the Info texts and links.
-- The addon still never casts for you and still never reads the combat log.
+
+- The spell to press now (slot 1) in any fresh situation, plus defense, interrupt, purge, cleanse, and weapon reminders, heal thresholds, profiles, and lists.
+- Still no combat log. The add-on still never casts for you.

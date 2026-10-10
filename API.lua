@@ -589,6 +589,7 @@ function ns.API.SpellIcon(spellID)
 end
 
 local resolveCache = {}
+local cooldownSecCache = {}
 local healNames
 local auraScans = {}
 local predict
@@ -626,6 +627,7 @@ function ns.API.InvalidateSpells(full)
 		end
 	end
 	wipe(auraScans)
+	wipe(cooldownSecCache)
 	healNames = nil
 	if ns.InvalidateBuffCaches then
 		ns.InvalidateBuffCaches()
@@ -828,16 +830,23 @@ local function fallbackSeconds(spellID)
 	return 0
 end
 
+-- Base cooldowns do not change in combat; fallbackSeconds walks every
+-- ns.COOLDOWNS name, so the answer is kept until spells are invalidated.
 function ns.API.SpellCooldownSec(spellID)
 	spellID = ns.API.Resolve(spellID) or spellID
 	if not spellID then
 		return 0
 	end
-	local sec = baseCooldownSec(spellID)
-	if sec and sec > 0.2 then
-		return sec
+	local cached = cooldownSecCache[spellID]
+	if cached then
+		return cached
 	end
-	return fallbackSeconds(spellID) or 0
+	local sec = baseCooldownSec(spellID)
+	if not sec or sec <= 0.2 then
+		sec = fallbackSeconds(spellID) or 0
+	end
+	cooldownSecCache[spellID] = sec
+	return sec
 end
 
 function ns.API.IsFallback(opt)
@@ -1547,7 +1556,84 @@ local function readUsable(fn, id)
 	return safe(usable, nil), safe(noMana, nil)
 end
 
-function ns.API.Ready(spellID, opt, ignoreCooldown)
+-- Aura-first rule for nobuff / nodebuff steps (ConROC-style): a readable
+-- missing aura → "go"; up with time left above refresh → "block"; stacks=N
+-- keeps applying until the count reaches N. nil = no aura rule, or the aura
+-- cannot be read (then the hold decides, the Forever fallback). `ahead`
+-- judges the aura that many seconds from now (HUD slots 2-3). No side effects.
+local function auraVerdict(spellID, opt, ahead, helpful, auraUnit)
+	if not opt.nobuff and not opt.nodebuff then
+		return nil
+	end
+	if helpful == nil then
+		helpful = ns.API.IsHelpful(spellID, opt)
+		auraUnit = helpful and ns.API.HealUnit(opt) or "player"
+	end
+	local verdict
+	if opt.nobuff then
+		local buffUnit = "player"
+		if opt.heal then
+			buffUnit = opt.unit or auraUnit
+		end
+		local found, remain, unreadable, _, stacks = ns.API.FindAura(spellID, buffUnit, "HELPFUL")
+		if found and remain < 9000 and remain <= ahead then
+			-- Gone before this slot can be pressed: same as missing.
+			found, unreadable = false, false
+		end
+		if found then
+			local needStacks = tonumber(opt.stacks)
+			local refreshAt = tonumber(opt.refresh) or 0
+			if needStacks and (stacks or 0) < needStacks then
+				verdict = "go"
+			elseif remain >= 9000 or refreshAt <= 0 or remain - ahead > refreshAt then
+				return "block"
+			end
+		elseif not unreadable then
+			verdict = "go"
+		elseif ns.API.HasAura(spellID, buffUnit, "HELPFUL") then
+			return "block"
+		end
+	end
+	if opt.nodebuff then
+		local debuff = opt.nodebuff == true and spellID or opt.nodebuff
+		-- Seals / buffs are "helpful" but judgement/DoT checks always use the enemy.
+		local debuffUnit = opt.unit or ((helpful and opt.heal) and auraUnit or "target")
+		local found, remain, unreadable, _, stacks = ns.API.FindAura(debuff, debuffUnit, "HARMFUL")
+		if found and remain < 9000 and remain <= ahead then
+			found, unreadable = false, false
+		end
+		if found then
+			local needStacks = tonumber(opt.stacks)
+			local refreshAt = tonumber(opt.refresh)
+			if refreshAt == nil then
+				refreshAt = 6
+			end
+			if needStacks and (stacks or 0) < needStacks then
+				verdict = "go"
+			elseif remain >= 9000 or refreshAt <= 0 or remain - ahead > refreshAt then
+				return "block"
+			else
+				verdict = "go"
+			end
+		elseif not unreadable then
+			verdict = "go"
+		elseif ns.API.HasAura(debuff, debuffUnit, "HARMFUL") then
+			return "block"
+		end
+	end
+	return verdict
+end
+
+-- True when a readable aura says this step should be cast (missing, still
+-- stacking, or due for refresh) at the slot being filled.
+function ns.API.AuraWantsCast(spellID, opt)
+	spellID = ns.API.Resolve(spellID) or spellID
+	return auraVerdict(spellID, opt or {}, ns.API.PredictAhead()) == "go"
+end
+
+-- ignorePower: the caller already checked mana / energy for a later time
+-- (HUD slots 2-3), so "not enough power right now" does not count.
+function ns.API.Ready(spellID, opt, ignoreCooldown, ignorePower)
 	local id = ns.API.Resolve(spellID)
 	if not id then
 		return false
@@ -1564,13 +1650,13 @@ function ns.API.Ready(spellID, opt, ignoreCooldown)
 		usable, noMana = readUsable(IsUsableSpell, id)
 	end
 	if noMana == true then
-		return false
+		return ignorePower == true
 	end
 	if usable == true then
 		return true
 	end
 	if helpfulOnly then
-		return hasResources(id)
+		return ignorePower == true or hasResources(id)
 	end
 	-- Camelot marks other spells unusable during a cast or GCD. Fillers
 	-- already bypass this; shocks and DoTs must still enter the lookahead.
@@ -1597,6 +1683,10 @@ function ns.API.StepOk(spellID, opt, timeShift)
 	if gate < 0.2 then
 		gate = 0.2
 	end
+	-- HUD slots 2-3 are judged at the moment they can be pressed: cooldowns,
+	-- holds and aura / totem time left are seen `ahead` seconds from now.
+	local ahead = ns.API.PredictAhead()
+	gate = gate + ahead
 	if opt.hostile and not ns.API.Hostile() then
 		return false
 	end
@@ -1612,7 +1702,7 @@ function ns.API.StepOk(spellID, opt, timeShift)
 			refreshAt = 1
 		end
 		local remain = ns.API.TotemRemain and ns.API.TotemRemain(spellID) or 0
-		if remain > refreshAt then
+		if remain - ahead > refreshAt then
 			return false
 		end
 	end
@@ -1646,59 +1736,18 @@ function ns.API.StepOk(spellID, opt, timeShift)
 	end
 	local helpful = ns.API.IsHelpful(spellID, opt)
 	local auraUnit = helpful and ns.API.HealUnit(opt) or "player"
-	-- Aura-first (ConROC-style): readable missing aura → allow; up with remain
-	-- above refresh → block. stacks=N keeps applying until count reaches N.
-	-- Hold is only a Forever fallback when auras lie.
-	if opt.nobuff then
-		local buffUnit = "player"
-		if opt.heal then
-			buffUnit = opt.unit or auraUnit
-		end
-		local found, remain, unreadable, _, stacks = ns.API.FindAura(spellID, buffUnit, "HELPFUL")
-		if found then
-			local needStacks = tonumber(opt.stacks)
-			local refreshAt = tonumber(opt.refresh) or 0
-			if needStacks and (stacks or 0) < needStacks then
-				if ns.API.HoldRemain(spellID) > 0 then
-					clearHoldKeys(spellID)
-				end
-			elseif remain >= 9000 or refreshAt <= 0 or remain > refreshAt then
-				return false
-			end
-		elseif not found and not unreadable then
-			if ns.API.HoldRemain(spellID) > 0 then
-				clearHoldKeys(spellID)
-			end
-		end
-		if not found and unreadable and ns.API.HasAura(spellID, buffUnit, "HELPFUL") then
-			return false
-		end
+	-- Aura-first (ConROC-style). When a readable aura says "go", the hold no
+	-- longer counts: for slot 1 it is cleared; for later slots (a predicted
+	-- future) it is only ignored, so filling slots 2-3 never changes what the
+	-- next tick shows.
+	local verdict = auraVerdict(spellID, opt, ahead, helpful, auraUnit)
+	if verdict == "block" then
+		return false
 	end
-	if opt.nodebuff then
-		local debuff = opt.nodebuff == true and spellID or opt.nodebuff
-		-- Seals / buffs are "helpful" but judgement/DoT checks always use the enemy.
-		local debuffUnit = opt.unit or ((helpful and opt.heal) and auraUnit or "target")
-		local found, remain, unreadable, _, stacks = ns.API.FindAura(debuff, debuffUnit, "HARMFUL")
-		if found then
-			local needStacks = tonumber(opt.stacks)
-			local refreshAt = tonumber(opt.refresh)
-			if refreshAt == nil then
-				refreshAt = 6
-			end
-			if needStacks and (stacks or 0) < needStacks then
-				clearHoldKeys(spellID)
-			elseif remain >= 9000 or refreshAt <= 0 or remain > refreshAt then
-				return false
-			else
-				clearHoldKeys(spellID)
-			end
-		elseif not found and not unreadable then
-			clearHoldKeys(spellID)
-		elseif not found and unreadable and ns.API.HasAura(debuff, debuffUnit, "HARMFUL") then
-			return false
-		end
+	if verdict == "go" and ahead <= 0 then
+		clearHoldKeys(spellID)
 	end
-	local holdLeft = ns.API.HoldRemain(spellID)
+	local holdLeft = verdict == "go" and 0 or ns.API.HoldRemain(spellID)
 	if holdLeft > gate then
 		return false
 	end
@@ -1821,10 +1870,18 @@ function ns.API.StepOk(spellID, opt, timeShift)
 	if opt.ready == false then
 		return true
 	end
+	local powerCovered = false
+	if ahead > 0 then
+		local short, covered = ns.API.ProjectedPower(spellID)
+		if short then
+			return false
+		end
+		powerCovered = covered
+	end
 	if ns.Physics and ns.Physics.IsClip and ns.Physics.IsClip(spellID) and ns.Physics.WouldClip and ns.Physics.WouldClip() then
 		return false
 	end
-	if ns.API.Ready(spellID, opt, true) or opt.filler == true or opt.swing == true then
+	if ns.API.Ready(spellID, opt, true, powerCovered) or opt.filler == true or opt.swing == true then
 		return true
 	end
 	-- Out of range is still a queue candidate for slots 2–3. Slot 1
@@ -1916,12 +1973,236 @@ local function rawCombo()
 	return 0
 end
 
+-- Mana (0) and energy (3) are projected for HUD slots 2-3. Rage is not:
+-- white hits and damage taken refill it at a rate the add-on cannot know.
+local PROJECTED_POWER = { 0, 3 }
+local ENERGY_TYPE = 3
+
+local function readPower(ptype)
+	local okCur, cur = pcall(UnitPower, "player", ptype)
+	local okMax, max = pcall(UnitPowerMax, "player", ptype)
+	cur = okCur and safe(cur, nil)
+	max = okMax and safe(max, nil)
+	if type(cur) ~= "number" or type(max) ~= "number" or max <= 0 then
+		return nil, nil
+	end
+	return cur, max
+end
+
 function ns.API.PredictBegin()
-	predict = { debuffs = {}, buffs = {}, cd = {}, usedBuffs = {}, combo = rawCombo(), taken = 0 }
+	predict = {
+		debuffs = {},
+		buffs = {},
+		cd = {},
+		usedBuffs = {},
+		combo = rawCombo(),
+		taken = 0,
+		-- Seconds between "now" and the moment the slot being filled can be
+		-- pressed. 0 for slot 1; grows by each picked spell's cast / GCD.
+		elapsed = 0,
+		power = {},
+		powerMax = {},
+	}
+	for _, ptype in ipairs(PROJECTED_POWER) do
+		predict.power[ptype], predict.powerMax[ptype] = readPower(ptype)
+	end
 end
 
 function ns.API.PredictEnd()
 	predict = nil
+end
+
+function ns.API.PredictAhead()
+	return predict and predict.elapsed or 0
+end
+
+function ns.API.PredictSetAhead(seconds)
+	if predict then
+		predict.elapsed = math.max(0, tonumber(seconds) or 0)
+	end
+end
+
+function ns.API.PredictAdvance(seconds)
+	if predict then
+		predict.elapsed = predict.elapsed + math.max(0, tonumber(seconds) or 0)
+	end
+end
+
+-- Classic global cooldown: 1 s for energy users (rogue, cat form), else 1.5 s.
+function ns.API.GCD()
+	local token = ns.ClassToken and ns.ClassToken()
+	if token == "ROGUE" then
+		return 1
+	end
+	if token == "DRUID" and ns.Spell and ns.Spell.Druid and ns.API.Form(ns.Spell.Druid.CatForm) then
+		return 1
+	end
+	return 1.5
+end
+
+-- How long pressing this spell keeps you busy before the next press:
+-- cast time or GCD, whichever is longer. Next-swing spells are off the GCD.
+function ns.API.SlotSeconds(spellID, opt)
+	opt = opt or {}
+	if opt.swing or (ns.Physics and ns.Physics.IsSwing and ns.Physics.IsSwing(spellID)) then
+		return 0
+	end
+	local cast = 0
+	local info = ns.API.SpellInfo(ns.API.Resolve(spellID) or spellID)
+	local ms = info and safe(info.castTime, nil)
+	if type(ms) == "number" and ms > 0 then
+		cast = ms / 1000
+	end
+	return math.max(cast, ns.API.GCD())
+end
+
+local function spellCosts(spellID)
+	local out = {}
+	if not C_Spell or not C_Spell.GetSpellPowerCost then
+		return out
+	end
+	local ok, costs = pcall(C_Spell.GetSpellPowerCost, spellID)
+	if not ok or type(costs) ~= "table" then
+		return out
+	end
+	for _, cost in ipairs(costs) do
+		if type(cost) == "table" then
+			local needed = tonumber(safe(cost.cost, nil))
+			local ptype = tonumber(safe(cost.type, nil))
+			if needed and needed > 0 and ptype then
+				out[#out + 1] = { type = ptype, cost = needed }
+			end
+		end
+	end
+	return out
+end
+
+-- Energy gained over `seconds`: 20 per tick, ticks every 2 s from the tick
+-- Physics observed; about 10/s when no tick has been seen yet.
+local function energyGain(seconds)
+	if seconds <= 0 then
+		return 0
+	end
+	local nextTick = ns.Physics and ns.Physics.EnergyTickRemain and ns.Physics.EnergyTickRemain()
+	if type(nextTick) ~= "number" then
+		return math.floor(seconds * 10)
+	end
+	if seconds < nextTick then
+		return 0
+	end
+	return 20 * (1 + math.floor((seconds - nextTick) / 2))
+end
+
+local function projectedPower(ptype)
+	local base = predict and predict.power[ptype]
+	if type(base) ~= "number" then
+		return nil
+	end
+	if ptype ~= ENERGY_TYPE then
+		return base
+	end
+	local value = base + energyGain(predict.elapsed)
+	local max = predict.powerMax[ptype]
+	if max and value > max then
+		value = max
+	end
+	return value
+end
+
+-- Seconds from now until projected energy reaches `need`, or nil.
+local function energyReadyAt(need)
+	local base = predict and predict.power[ENERGY_TYPE]
+	if type(base) ~= "number" then
+		return nil
+	end
+	local deficit = need - base
+	if deficit <= 0 then
+		return 0
+	end
+	local nextTick = ns.Physics and ns.Physics.EnergyTickRemain and ns.Physics.EnergyTickRemain()
+	if type(nextTick) ~= "number" then
+		return deficit / 10
+	end
+	return nextTick + 2 * (math.ceil(deficit / 20) - 1)
+end
+
+-- Seconds after the slot being filled until this step's own cooldown, hold,
+-- aura refresh window or projected energy allows it; nil when none of those
+-- is in the way. HUD slots 2-3 re-check only these moments when nothing is
+-- pressable, instead of scanning the whole list on a time grid.
+function ns.API.WaitHint(spellID, opt)
+	opt = opt or {}
+	spellID = ns.API.Resolve(spellID) or spellID
+	if not spellID or not predict then
+		return nil
+	end
+	local at = predict.elapsed + 0.2
+	local wait = 0
+	local cd = ns.API.Cooldown(spellID)
+	if cd > at then
+		wait = cd - at
+	end
+	-- A readable aura decides instead of the hold (same rule as StepOk).
+	local auraReadable = false
+	if opt.nodebuff or opt.nobuff then
+		local aura, unit, filter, refreshAt
+		if opt.nodebuff then
+			aura = opt.nodebuff == true and spellID or opt.nodebuff
+			unit, filter = opt.unit or "target", "HARMFUL"
+			refreshAt = tonumber(opt.refresh) or 6
+		else
+			aura, unit, filter = spellID, "player", "HELPFUL"
+			refreshAt = tonumber(opt.refresh) or 0
+		end
+		local found, remain, unreadable = ns.API.FindAura(aura, unit, filter)
+		if found and remain < 9000 then
+			auraReadable = true
+			local left = remain - math.max(refreshAt, 0) - predict.elapsed
+			if left > 0 then
+				wait = math.max(wait, left)
+			end
+		elseif not found and not unreadable then
+			auraReadable = true
+		end
+	end
+	if not auraReadable then
+		local hold = ns.API.HoldRemain(spellID)
+		if hold > at then
+			wait = math.max(wait, hold - at)
+		end
+	end
+	for _, cost in ipairs(spellCosts(spellID)) do
+		if cost.type == ENERGY_TYPE then
+			local ready = energyReadyAt(cost.cost)
+			if ready and ready > predict.elapsed then
+				wait = math.max(wait, ready - predict.elapsed)
+			end
+		end
+	end
+	if wait <= 0 then
+		return nil
+	end
+	return wait + 0.05
+end
+
+-- For a later HUD slot: short = it could not pay for this spell at its time;
+-- covered = every cost is mana / energy with a readable projection, so the
+-- live "not enough power" answer from the client does not apply.
+function ns.API.ProjectedPower(spellID)
+	if not predict or predict.elapsed <= 0 then
+		return false, false
+	end
+	spellID = ns.API.Resolve(spellID) or spellID
+	local covered = true
+	for _, cost in ipairs(spellCosts(spellID)) do
+		local have = projectedPower(cost.type)
+		if have == nil then
+			covered = false
+		elseif have < cost.cost then
+			return true, true
+		end
+	end
+	return false, covered
 end
 
 local function predictMarkDebuff(spellID)
@@ -1973,6 +2254,11 @@ function ns.API.PredictConsume(spellID, opt)
 	spellID = ns.API.Resolve(spellID) or spellID
 	opt = opt or {}
 	predict.taken = (predict.taken or 0) + 1
+	for _, cost in ipairs(spellCosts(spellID)) do
+		if predict.power[cost.type] then
+			predict.power[cost.type] = predict.power[cost.type] - cost.cost
+		end
+	end
 	if opt.nodebuff then
 		local debuff = opt.nodebuff == true and spellID or opt.nodebuff
 		predictMarkDebuff(debuff)
@@ -2013,7 +2299,8 @@ function ns.API.PredictConsume(spellID, opt)
 	if not seconds or seconds <= 0.2 then
 		return
 	end
-	local exp = GetTime() + seconds
+	-- The cooldown starts when this slot is pressed, not now.
+	local exp = GetTime() + predict.elapsed + seconds
 	predict.cd[cdKey(spellID)] = exp
 	predict.cd["id:" .. tostring(spellID)] = exp
 	local group = groupOf(spellID)
